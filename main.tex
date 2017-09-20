@@ -15,6 +15,7 @@
 % \documentclass[blind,alpha-refs]{wiley-article}
 
 % Add additional packages here if required
+\input{file_system/package.tex}
 \usepackage{siunitx}
 
 % Update article type if known
@@ -50,9 +51,17 @@
 % Include the name of the author that should appear in the running header
 \runningauthor{Author One et al.}
 
+% \DeclareAcronym{cap}{
+% short = CaP,
+% long = prostate cancer
+% }
+
+\input{file_system/acronym_definition.tex}
+
 \begin{document}
 
 \maketitle
+
 
 \begin{abstract}
 This is a generic template designed for use by multiple journals, which includes several options for customization. Please consult the author guidelines for the journal to which you are submitting in order to confirm that your manuscript will comply with the journal's requirements. Please replace this text with your abstract.
@@ -62,6 +71,9 @@ This is a generic template designed for use by multiple journals, which includes
 \end{abstract}
 
 \section{First Level Heading}
+
+
+  \ac{cap}
 Please lay out your article using the section headings and example objects below, and remember to delete all help text prior to submitting your article to the journal.
 
 \begin{figure}[bt]
