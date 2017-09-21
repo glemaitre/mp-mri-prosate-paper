@@ -8,10 +8,10 @@
 %% amsmath for math environment
 \usepackage{amsmath}
 
-% \declaremathoperator*{\argmin}{arg\,min}
-% \declaremathoperator*{\argmax}{arg\,max}
-% \declaremathoperator*{\sign}{sign}
-% \declaremathoperator*{\infspie}{inf}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\sign}{sign}
+\DeclareMathOperator*{\infspie}{inf}
 
 
 % % to break equation
@@ -46,7 +46,7 @@
 \usepackage{threeparttable}
 \usepackage{booktabs}
 \usepackage{multirow}
-% \usepackage{siunitx}
+\usepackage{siunitx}
 
 % %% In order to change size of margin
 % \usepackage{geometry}
@@ -92,8 +92,8 @@
 \definecolor{fullyGuided}{rgb}{ 0.4275    0.6902    0.3176}
 \newcommand{\fullyGuidedColor}{(dark-green)}
 
-% \DeclareSIUnit\ppm{ppm}
-% \DeclareSIUnit\px{px}
+\DeclareSIUnit{\ppm}{ppm}
+\DeclareSIUnit\px{px}
 
 \usepackage{ltxtable}
 \usepackage{listings}
