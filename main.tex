@@ -91,48 +91,251 @@
 \end{abstract}
 
 
+
+
 \section{Introduction}
 
 \Ac{cap} is the second most frequently diagnosed cancer in men, accounting for
 899,000 cases and leading to 258,100 deaths per
 year~\citep{ferlay2010estimates}. As highlighted by the PI-RADS Steering
 Committee, the two main challenges to be addressed are~\citep{weinreb2016pi}:
-(i) improving the detection of clinically significant \ac{cap}
-and (ii) increasing confidence in benign or dormant cases and therefore avoiding
-unnecessary invasive medical exams. In this regard, \ac{mpmri} is frequently
-used to build robust \ac{cad} systems to detect, localize, and grade \ac{cap}.
-In general, \ac{cad} systems are based on \ac{mpmri} which potentially combines
-several of the following modalities~\citep{lemaitre2015computer}:
-\ac{t2w}-\ac{mri}, \ac{dce}-\ac{mri}, \ac{adc} maps, and \ac{mrsi}.
+(i) improving the detection of clinically significant \ac{cap} and (ii)
+increasing confidence in benign or dormant cases and therefore avoiding
+unnecessary invasive medical exams.
 
-\emph{Semi-quantitative} approaches are mathematical rather than pharmacokinetic because no pharmacokinetic assumptions regarding the relationship between the \ac{mri} signal and the contrast agent are made~\citep{huisman2001accurate,gliozzi2011phenomenological}.
-These methods are advantageous because they do not require any knowledge of the \ac{mri} sequence or any conversion from signal intensity to concentration.
-However, they present some limitations: the heuristic approach
-proposed by \citeauthor{huisman2001accurate} requires an initial
-estimate of the standard deviation of the signal noise and some manual tuning.
+\emph{
+Chan et al. also hypothesized that
+\acs{cad} systems will be even more efficient assisting inexperienced
+radiologists than senior radiologists~\cite{Chan1999}. This hypothesis was
+tested by Hambrock et al.~\cite{Hambrock2013} and was confirmed in the case of
+\ac{cap} detection. In this particular study, inexperienced radiologists
+obtained equivalent performance to senior radiologists, both using \acs{cad}
+whereas the accuracy of their diagnosis was significantly poorer without
+\acs{cad}'s help.
+}
 
-Nevertheless, all of the presented methods suffer from the following two major drawbacks:
-(i) inter-patient variability and (ii) loss of information.
-The inter-patient variability is mainly due to the acquisition process
-and consequently leads to generalization issues in applying a machine learning algorithm.
-All previous methods extract few discriminative parameters to describe the \ac{dce}-\ac{mri} signal which might lead to a loss of information.
-%(i) the inter-patient variability of the data lead to a variation of the parameters estimated and subsequently to poor classification performance while designing \ac{cad} systems, and
-%(ii) only few parameters are used to characterize the dynamic signal implying that some information are discarded.
+\emph{
+  \acs{cad} for \ac{cap} is a
+young technology due to the fact that it is based on \ac{mri}~\cite{Hegde2013}.
+}
 
-In this work, we propose a fully automatic normalization method for \ac{dce}-\ac{mri} that reduces the inter-patient variability of the data.
-The benefit and simplicity of our approach will be demonstrated by
-classifying the whole normalized \ac{dce}-\ac{mri} signal and
-comparing it with state-of-the-art quantitative and semi-quantitative methods.
-Additionally, we will show that using this normalization approach in conjunction with the quantitative methods improves the classification performance of most of the models.
-We also propose a new clustering-based method to discern enhanced
-signals from the arteries that can, later be used to estimate an
-\ac{aif} and provide an alternative approach to estimate the parameters of the semi-quantitative model proposed by~\cite{huisman2001accurate}.
+\emph{
+  Thus, the aim of \cite{lemaitre2015computer} is threefold: (i) provide an
+overview and categorisation of the developed \acs{cad} systems for \ac{cap}
+detection and diagnosis based on \ac{mri} modalities (ii) assess the different
+works and (iii) point out avenues for future directions.
+}
+
+% survey's framework 
+\emph{
+As discussed further in \acs{sec}\,\ref{subsubsec:CAD}, we identified and
+characterized a common framework regarding the \acs{cad} systems. Stages
+involved in \acs{cad} work-flow can be categorized into three distinctive
+processes: (i) image regularization, (ii) \ac{cade}, (iii) \ac{cadx} (see
+Fig.~\ref{fig:wkfcad}). Image regularisation focuses on formatting the data
+while \ac{cade} and \ac{cadx} allow to detect possible lesions and distinguish
+malignant from non-malignant tumours, respectively.
+}
+
+% survey's summary
+\emph{
+  \begin{itemize}
+  \item 56 studies
+  \item # of MRI modalities: 1 - 33%, 2 - 31%, 3 - 33%, 4 - 1%
+  \item Scanner type: 3T - 60%, 1.5T - 40%
+  \item studied zones: PZ - 45%, PZ+CG 55%
+  \item cad type: cade-cadx 70%, cadx 30%
+  \end{itemize}
+}
+
+% survey conclusion
+\emph{
+  positive:
+  \begin{itemize}
+    \item  3 modalities better than 2
+    \item  Texture and edge features are predominant
+    \item  Features selection/extraction tends to improve performance
+    \item  Pre-eminence of SVM and ensemble classifier (i.e., AdaBoost, RF, etc.)
+  \end{itemize}
+  Negative:
+  \begin{itemize}
+    \item No publicly available mp-MRI dataset
+    \item Only 1 study used 4 MRI modalities
+    \item Limited work on data normalization
+    \item A lot of features are extracted in 2D
+    \item Limited work regarding selection/extraction
+    \item No work regarding data balancing
+    \item No source code available of any CAD
+  \end{itemize}
+This review has presented an overview and classification of the research related to \ac{cad} development for \ac{cap} using multi-parametric \ac{mri} data. We aimed at providing background information regarding multi-parametric \ac{mri} imaging techniques and a description of the work-flow in the different \ac{cad} stages. The methods used in the literature for each of these stages have been reviewed along with the available results of the \ac{cad} systems. Moreover, insight discussions and possible future research directions have also been given. Finally, a multi-parametric multi-vendor dataset has been made available to the research community in order to provide a standardised platform for \ac{cad} development and evaluation for \ac{cap} using multi-parametric \ac{mri}.
+}
+
+% In this regard, \ac{mpmri} is frequently
+% used to build robust \ac{cad} systems to detect, localize, and grade \ac{cap}.
+% In general, \ac{cad} systems are based on \ac{mpmri} which potentially combines
+% several of the following modalities~\citep{lemaitre2015computer}:
+% \ac{t2w}-\ac{mri}, \ac{dce}-\ac{mri}, \ac{adc} maps, and \ac{mrsi}.
+
+
+
+\section{Materials and Methods}
+
+\subsection{Data}\label{sec:data}
+
+The multi-parametric \ac{mri} data are acquired from a cohort of patients with higher-than-normal levels of \ac{psa}.
+Acquisition is achieved with a 3T whole body \ac{mri} scanner (Siemens Magnetom Trio TIM, Erlangen, Germany) using sequences to obtain \ac{t2w}-\ac{mri}, \ac{dce}-\ac{mri} and \ac{dw}-\ac{mri}.
+\textbf{In addition to the \ac{mri} examination, these patients also have
+undergone a \ac{trus} guided-biopsy.}
+The dataset is composed of a total of 20 patients, 18 of which have
+biopsies that were positive for \ac{cap} and 2 patients are considered
+``healthy'' because they have negative biopsies.
+Therefore, 13 patients have \ac{cap} in the \ac{pz}, 3 patients have
+\ac{cap} in the \ac{cg}, 2 patients have invasive \ac{cap} in both the
+\ac{pz} and the \ac{cg}, and finally 2 patients are considered ``healthy''.
+An experienced radiologist segmented the prostate organ---on
+\ac{t2w}-\ac{mri} and \ac{dce}-\ac{mri}---as well as the prostate
+zones (i.e., \ac{pz} and \ac{cg}) and the \ac{cap} on the \ac{t2w}-\ac{mri}.
+
+A \SI{3}{\mm} slice of fat-suppressed \ac{t2w} fast spin-echo sequence
+(\ac{tr}/\ac{te}/\ac{etl}: \SI{3400}{\ms}/\SI{85}{\ms}/13) is used to
+acquire images in the sagittal and oblique coronal planes, with the latter planes orientated perpendicular or parallel to the prostate \ac{pz} – rectal wall axis.
+Three-dimensional \ac{t2w} fast spin-echo (\ac{tr}/\ac{te}/\ac{etl}: \SI{3600}{\ms}/\SI{143}{\ms}/109, slice thickness: \SI{1.25}{\mm}) images are then acquired in an oblique axial plane.
+The nominal matrix and the \ac{fov} of the 3D \ac{t2w} fast spin-echo images are $320 \times 256$ and $280 \times 240$ mm\textsuperscript{2}, respectively, thereby affording sub-millimetric pixel resolution within the imaging plane.
+
+\ac{dce}-\ac{mri} is performed using a fat-suppressed 3D T$_1$ VIBE
+sequence (\ac{tr}/\ac{te}/Flip angle:
+\SI{3.25}{\ms}/\SI{1.12}{\ms}/\SI{10}{\degree}; Matrix: $256 \times
+192$; \ac{fov}: $280 \times 210$ (with 75\% rectangular \ac{fov}); a slab of 16 partitions of \SI{3.5}{\mm} thickness; temporal resolution: \SI{6}{\s}/slab over approximately \SI{5}{\minute}).
+A power injector (Medrad, Indianola, USA) is used to provide a bolus
+injection of Gd-DTPA (Dotarem, Guerbet, Roissy, France) at a dose of
+\SI{0.2}{\ml} Gd-DTPA/kg of body weight.
+\textbf{The acquisition starts before the bolus injection to obtain
+  pre-contrast volumes.}
+
+These \ac{dce}-\ac{mri} sequences are resampled using the spatial
+information of the \ac{t2w}-\ac{mri} and any missing data are added using linear interpolation.
+The volumes of the \ac{dce}-\ac{mri} dynamic are rigidly registered to remove any patient motion during the acquisition.
+Furthermore, a non-rigid registration is performed between the \ac{t2w}-\ac{mri} and \ac{dce}-\ac{mri} to propagate the prostate zones and \ac{cap} ground-truths.
+The resampling is implemented in C++ using the Insight Segmentation and Registration Toolkit~\citep{ibanez2005itk}.
+\paragraph{summary}
+All these experiments are conducted on a subset of the public \ac{mpmri} prostate presented in \acs{sec}\,\ref{sec:data3t}.
+We used the \SI{3}{\tesla} dataset which is composed of a total of 19 patients of which 17 patients had biopsy proven \ac{cap} and 2 patients are ``healthy'' with negative biopsies. 
+In this study, our subset consists of 17 patients with \ac{cap}.
+
+\subsection{Implementation}
+
+The implementation of the registration (C++), normalization (Python), and classification pipeline (Python) are publicly available on GitHub\footnote{\url{https://github.com/I2Cvb/lemaitre-2016-nov/tree/master}}~\citep{lemaitre2016github}.
+The data used in this work are also publicly available\footnote{\url{https://zenodo.org/record/61163}}~\citep{lemaitre2016dce}.
+
+\subsection{CaP framework}
+\label{sec:framework}
+\input{./2_modality/fig-1-cad-framework.tex}
+
+
+Our \ac{mpmri} \ac{cad} system consists of seven different steps: pre-processing, segmentation, registration, feature detection, balancing, feature selection/extraction, and finally classification.
+
+\paragraph{Pre-processing}
+Three types of pre-processing are used for \ac{mri} images: (i) noise filtering, (ii) bias correction, and (iii) standardization/normalization.
+
+Additionally, the \ac{mrsi} modality requires a specific pre-processing based on signal processing rather than image processing.
+Therefore, the \ac{mrsi} modality has been pre-processed to correct the phase, baseline, and frequency.
+Additionally, each \ac{mrsi} spectrum is normalized using the L$_2$ norm, which has been shown to be the most efficient normalization method in \ac{mrsi} as discussed in \acs{sec}\,\ref{subsec:chp3img-reg:prepro}.
+\paragraph{segmentation}
+For this study, no segmentation method has been developed and the manual segmentation given by our radiologist has been used.
+\paragraph{registration}
+\paragraph{balancing}
+\paragraph{feature detection}
+
+To approach the task of automatic detection of \ac{cap} using machine learning, one has to extract a variety of feature specific to the \ac{mri} modality as presented in \acs*{sec}\,\ref{subsec:chp3:img-clas:CADX-fea-dec}.
+
+\subparagraph{\ac{t2w}-\ac{mri} and \ac{adc} map features}
+\Acl{tab}~\ref{tab:featureadct2w} summarizes the different features extracted with their corresponding parameters.
+Note that all these features are extracted at each voxel of the volume.
+\begin{table}
+  \caption{Features extracted in \acs*{t2w}-\acs*{mri} and \acs*{adc} volumes.}
+  \centering
+  \scriptsize
+  \begin{tabularx}{\textwidth}{lXc}
+    \toprule
+    \textbf{Features} & \textbf{Parameters} & \textbf{\# dimensions} \\
+    \midrule
+    Intensity &  & 1 \\
+    \acs*{dct} decomposition & window: \SI[product-units=repeat]{9x9x3}{\px} & 243 \\
+    Kirsch filter &  & 2 \\
+    Laplacian filter &  & 1 \\
+    Prewitt filter &  & 3 \\
+    Scharr filter &  & 3 \\
+    Sobel filter &  & 3 \\
+    Gabor filters & 4 frequencies $f \in [0.05, 0.25]$; 4 azimuth angles $\alpha \in [0, \pi]$; 8 elevation angles $\alpha \in [0, 2\pi]$ & 256 \\
+    Phase congruency filter & 5 orientations; 6 scales & 3 \\
+    Haralick filter & window: \SI[product-units=repeat]{9x9x3}{\px}; \# grey levels: 8; distance: \SI{1}{\px}; 13 directions & 169 \\
+    \acs*{lbp} filter & 2 radii $r=\{1, 2\}$; 2 neighborhood sizes $N = \{8, 16\}$ & 6 \\
+    \bottomrule
+  \end{tabularx}
+  \label{tab:featureadct2w}
+\end{table}
+
+To approach the task of automatic detection of \ac{cap} using machine learning, one has to extract a variety of feature specific to the \ac{mri} modality as presented in \acs*{sec}\,\ref{subsec:chp3:img-clas:CADX-fea-dec}.
+
+\subparagraph{\ac{dce}-\ac{mri} features}
+In brief, the entire enhanced signal, semi-quantitative, and quantitative methods are computed. 
+The reader can refer to \ac{sec}\,\ref{subsubsec:chp5:DCE-norm:stateart} for a detailed presentation of the different methods used.
+\subparagraph{\ac{mrsi} features}
+Due to unavailability of some unsuppressed water acquisition, absolute quantification as presented by \citeauthor{trigui2017automatic} could not be computed~\cite{trigui2017automatic}.
+Therefore, likewise in~\cite{Parfait2012}, three different techniques are used to extract discriminative features: (i) relative quantification based on metabolite quantification, (ii) relative quantification based on bounds integration, and (iii) spectra extraction.
+\subparagraph{Anatomical features}
+Beside the aforementioned features specific at each modality, anatomical features as proposed by \citeauthor{Chen2002} and \citeauthor{Litjens2014} are computed~\cite{Chen2002,Litjens2014}.
+Therefore, 4 different metrics are computed based on the relative distance to the prostate boundary as well as the prostate center, and the relative position in the Euclidean and cylindrical coordinate systems.
+
+\paragraph{Feature extraction}
+Feature selection and extraction are used in the experiment: (i) signal-based data --- i.e., \ac{mrsi} and \ac{dce}-\ac{mri} --- are decomposed using feature extraction methods while (ii) image-based features are selected through different feature selection methods.
+These methods have been presented in \acs{sec}\,\ref{subsec:chp3:img-clas:CADX-fea-ext}.
+
+Among those, \ac{pca}, sparse-\ac{pca}, and \ac{ica} are used to decompose signal-based data.
+\paragraph{classification}
+Variety of classifiers have been explained in \acs{sec}\,\ref{subsec:chp3:img-clas:CADX-clas}. 
+
+Among those, \ac{rf} showed its reliability to lead to high classification performance.
+That is why, \ac{rf} has been chosen as our base classifier --- allowing for feature selection as well --- to perform classification of individual modality as well as the combination of modalities.
+
+% \begin{figure}
+%   \centering
+%   \includegraphics[width=0.5\linewidth]{content/figures/stacking_gb.png}
+%   \caption[The principle of stacking.]{The principle of stacking. First,
+%     training samples (red) are used to train each individual \ac{rf}.
+%     Subsequently, a validation set (green) is provided to each \ac{rf} which
+%     outputs a set of probabilities used for the classification of the
+%     meta-classifier. Finally, a test set is used to asses the classification
+%     performance to whole stack.}
+%   \label{fig:stacking}
+% \end{figure}
+
+Additionally, we use stacking to create ensemble of base learners using a meta-classifier~\cite{wolpert1992stacked}.
+\Acl{fig}~\ref{fig:stacking} illustrate the principle of stacking.
+Stacking consists in a two-stage learning:
+(i) First, a set of training samples is used to train each individual base learner and
+(ii) subsequently, a set of validation samples is provided to each \ac{rf} which individually output a corresponding set of probability used to train a meta-classifier.
+Finally, the stack of classifiers is assessed by providing a test set which is going through the base learners and the meta-classifier.
+
+In the later experiments, \ac{adb} and \ac{gb} are chosen as meta-classifiers to aggregate the base learners in the stacking strategies.
+The difference between \ac{adb} and \ac{gb} lie in the fact the this
+minimization procedure.
+
+\section{Experiment and results}
+\label{sec:experiments}
+
+
 
 
 \input{./content/chapter6.tex}
 
 
-% \begin{table}[bt]
+
+
+
+
+
+% \begin{table[bt]
 % \caption{This is a table. Tables should be self-contained and complement, but not duplicate, information contained in the text. They should be not be provided as images. Legends should be concise but comprehensive – the table, legend and footnotes must be understandable without reference to the text. All abbreviations must be defined in footnotes.}
 % \begin{threeparttable}
 % \begin{tabular}{lccrr}
