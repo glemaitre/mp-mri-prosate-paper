@@ -206,45 +206,18 @@ Framework
 
 \subsection{Data}\label{sec:data}
 
-The multi-parametric \ac{mri} data are acquired from a cohort of patients with higher-than-normal levels of \ac{psa}.
-Acquisition is achieved with a 3T whole body \ac{mri} scanner (Siemens Magnetom Trio TIM, Erlangen, Germany) using sequences to obtain \ac{t2w}-\ac{mri}, \ac{dce}-\ac{mri} and \ac{dw}-\ac{mri}.
-\textbf{In addition to the \ac{mri} examination, these patients also have
-undergone a \ac{trus} guided-biopsy.}
-The dataset is composed of a total of 20 patients, 18 of which have
-biopsies that were positive for \ac{cap} and 2 patients are considered
-``healthy'' because they have negative biopsies.
-Therefore, 13 patients have \ac{cap} in the \ac{pz}, 3 patients have
-\ac{cap} in the \ac{cg}, 2 patients have invasive \ac{cap} in both the
-\ac{pz} and the \ac{cg}, and finally 2 patients are considered ``healthy''.
-An experienced radiologist segmented the prostate organ---on
-\ac{t2w}-\ac{mri} and \ac{dce}-\ac{mri}---as well as the prostate
-zones (i.e., \ac{pz} and \ac{cg}) and the \ac{cap} on the \ac{t2w}-\ac{mri}.
-
-A \SI{3}{\mm} slice of fat-suppressed \ac{t2w} fast spin-echo sequence
-(\ac{tr}/\ac{te}/\ac{etl}: \SI{3400}{\ms}/\SI{85}{\ms}/13) is used to
-acquire images in the sagittal and oblique coronal planes, with the latter planes orientated perpendicular or parallel to the prostate \ac{pz} – rectal wall axis.
-Three-dimensional \ac{t2w} fast spin-echo (\ac{tr}/\ac{te}/\ac{etl}: \SI{3600}{\ms}/\SI{143}{\ms}/109, slice thickness: \SI{1.25}{\mm}) images are then acquired in an oblique axial plane.
-The nominal matrix and the \ac{fov} of the 3D \ac{t2w} fast spin-echo images are $320 \times 256$ and $280 \times 240$ mm\textsuperscript{2}, respectively, thereby affording sub-millimetric pixel resolution within the imaging plane.
-
-\ac{dce}-\ac{mri} is performed using a fat-suppressed 3D T$_1$ VIBE
-sequence (\ac{tr}/\ac{te}/Flip angle:
-\SI{3.25}{\ms}/\SI{1.12}{\ms}/\SI{10}{\degree}; Matrix: $256 \times
-192$; \ac{fov}: $280 \times 210$ (with 75\% rectangular \ac{fov}); a slab of 16 partitions of \SI{3.5}{\mm} thickness; temporal resolution: \SI{6}{\s}/slab over approximately \SI{5}{\minute}).
-A power injector (Medrad, Indianola, USA) is used to provide a bolus
-injection of Gd-DTPA (Dotarem, Guerbet, Roissy, France) at a dose of
-\SI{0.2}{\ml} Gd-DTPA/kg of body weight.
-\textbf{The acquisition starts before the bolus injection to obtain
-  pre-contrast volumes.}
-
-These \ac{dce}-\ac{mri} sequences are resampled using the spatial
-information of the \ac{t2w}-\ac{mri} and any missing data are added using linear interpolation.
-The volumes of the \ac{dce}-\ac{mri} dynamic are rigidly registered to remove any patient motion during the acquisition.
-Furthermore, a non-rigid registration is performed between the \ac{t2w}-\ac{mri} and \ac{dce}-\ac{mri} to propagate the prostate zones and \ac{cap} ground-truths.
-The resampling is implemented in C++ using the Insight Segmentation and Registration Toolkit~\citep{ibanez2005itk}.
-\paragraph{summary}
-All these experiments are conducted on a subset of the public \ac{mpmri} prostate presented in \acs{sec}\,\ref{sec:data3t}.
-We used the \SI{3}{\tesla} dataset which is composed of a total of 19 patients of which 17 patients had biopsy proven \ac{cap} and 2 patients are ``healthy'' with negative biopsies. 
-In this study, our subset consists of 17 patients with \ac{cap}.
+All experiments are conducted on a subset of public \ac{mpmri} prostate
+dataset available in \cite{dataset}. The subset used in this work corresponds to
+the 17 \ac{cap} cases proven positive by biopsy. The images were acquired with a
+\SI{3}{\tesla} whole body \ac{mri} scanner (Siemens Magnetom Trio TIM, Erlangen,
+Germany) using sequences to obtain \ac{t2w}-\ac{mri}, \ac{dce}-\ac{mri} and
+\ac{dw}-\ac{mri}. This last one is used to compute the \ac{adc} maps.
+All cases have complementary \ac{mrsi} and \ac{gt} data. 
+%
+For each case the \ac{gt} is composed by the following volume-delinations
+provided by experienced radiologits: the prostate on \ac{t2w}, \ac{adc} and for
+a single \ac{dce}-\ac{mri} time series; the prostate's \ac{cg} on \ac{t2w}; plus
+all the lesion delineations, also on \ac{t2w}. A total of 5 volumes per case.
 
 \subsection{Implementation}
 
