@@ -206,23 +206,19 @@ Framework
 
 \subsection{Data}\label{sec:data}
 
-All experiments are conducted on a subset of public \ac{mpmri} prostate
-dataset available in \cite{dataset}. The subset used in this work corresponds to
-the 17 \ac{cap} cases proven positive by biopsy. The images were acquired with a
-\SI{3}{\tesla} whole body \ac{mri} scanner (Siemens Magnetom Trio TIM, Erlangen,
-Germany) using sequences to obtain \ac{t2w}-\ac{mri}, \ac{dce}-\ac{mri} and
-\ac{dw}-\ac{mri}. This last one is used to compute the \ac{adc} maps.
-All cases have complementary \ac{mrsi} and \ac{gt} data. 
+All experiments are conducted on a subset of public \ac{mpmri} prostate dataset
+available in~\citep{lemaitre2016dce}. The subset used in this work corresponds
+to the 17 \ac{cap} cases proven positive by biopsy. The images were acquired
+with a \SI{3}{\tesla} whole body \ac{mri} scanner (Siemens Magnetom Trio TIM,
+Erlangen, Germany) using sequences to obtain \ac{t2w}-\ac{mri},
+\ac{dce}-\ac{mri} and \ac{dw}-\ac{mri}. This last one is used to compute the
+\ac{adc} maps. All cases have complementary \ac{mrsi} and \ac{gt} data.
 %
 For each case the \ac{gt} is composed by the following volume-delinations
 provided by experienced radiologits: the prostate on \ac{t2w}, \ac{adc} and for
 a single \ac{dce}-\ac{mri} time series; the prostate's \ac{cg} on \ac{t2w}; plus
 all the lesion delineations, also on \ac{t2w}. A total of 5 volumes per case.
 
-\subsection{Implementation}
-
-The implementation of the registration (C++), normalization (Python), and classification pipeline (Python) are publicly available on GitHub\footnote{\url{https://github.com/I2Cvb/lemaitre-2016-nov/tree/master}}~\citep{lemaitre2016github}.
-The data used in this work are also publicly available\footnote{\url{https://zenodo.org/record/61163}}~\citep{lemaitre2016dce}.
 
 \subsection{CaP framework}
 \label{sec:framework}
@@ -230,6 +226,11 @@ The data used in this work are also publicly available\footnote{\url{https://zen
   \centering
 \input{./images/cad/cad_1.tex}
 \end{figure}
+
+\subsection{Implementation}
+
+The implementation of the registration (C++), normalization (Python), and classification pipeline (Python) are publicly available on GitHub\footnote{\url{https://github.com/I2Cvb/lemaitre-2016-nov/tree/master}}~\citep{lemaitre2016github}.
+The data used in this work are also publicly
 
 
 % Our \ac{mpmri} \ac{cad} system consists of seven different steps: pre-processing, segmentation, registration, feature detection, balancing, feature selection/extraction, and finally classification.
