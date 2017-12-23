@@ -99,14 +99,15 @@
 899,000 cases and leading to 258,100 deaths per year~\citep{ferlay2010estimates}.
 %
 Early detection, diagnosis and accurate risk assessment play a major role in
-patient treatment. In this regard, \citeauthor*{Hambrock2013} explore the idea
-of incorporating \ac{cad} systems to assist radiologists in their clinical
-practice; showing that applying \ac{cad} to \ac{cap} detection and diagnosis
-improve the clinician's performance specially for inexperienced radiologists
-which obtained equivalent results to senior radiologists\,\cite{Hambrock2013}.
+patient treatment. In this regard, \citeauthor{Hambrock2013}\,\cite{Hambrock2013}
+explore the idea of incorporating \ac{cad} systems to assist radiologists in
+their clinical practice; showing that applying \ac{cad} to \ac{cap} detection
+and diagnosis improve the clinician's performance specially for inexperienced
+radiologists which when assisted by \ac{cad} system are able to obtain results
+equivalent to those from a senior radiologist.
 
-Despite recent advances in \ac{cap}-\ac{cad} development, it remains a young
-technology mainly because it is based on \ac{mri}~\cite{Hegde2013}.
+Despite recent advances, in \ac{cap}-\ac{cad} remains a young technology mainly
+because it is based on \ac{mri}~\cite{Hegde2013}.
 %
 The two main challenges in \ac{cap}-\ac{cad} systems, as pointed by the
 \ac{pirads} Steering Committee are: (i) improving the detection of clinically
@@ -114,15 +115,19 @@ significant \ac{cap} and (ii) increasing confidence in benign or dormant cases
 to avoid unnecessary invasive medical exams~\citep{weinreb2016pi}.
 
 \citeauthor{lemaitre2015computer}\,\cite{lemaitre2015computer} provide an
-overview and categorisation of the developed \acs{cad} systems for \ac{cap}
-detection and diagnosis based on \ac{mri} modalities. The main highlights can be
-found in \acs{tab}\,\ref{tab:survey-summary}; whereas
+overview and categorization of the developed \acs{cad} systems for \ac{cap}
+detection and diagnosis based on \ac{mri} modalities.
+The main highlights can be
+found in \acs{tab}\,\ref{tab:survey-summary};
+whereas
 \acs{fig}\,\ref{fig:wkfcad} correspond to the common \ac{cad} framework
-identified.% in~\cite{lemaitre2015computer}.
+identified in~\cite{lemaitre2015computer}, which is detailed in \acs{sec}\,\ref{sec:framework}.
 
-This work tries to bring some light to the following aspects: (i) The impact of
-using \ac{mpmri}, (ii) normalization of \ac{dce}-\ac{mri} modality, (iii) the effect
-of balancing the data, and (iv) thorough study in feature selection/extraction.
+The main goal of this work is to evaluate the impact of using \ac{mpmri} in
+\ac{cap}-\ac{cad} systems and also bring some light to the following key aspects:
+(i) normalization of \ac{dce}-\ac{mri} modality,
+(ii) the effect of balancing the data,
+and (iii) thorough study in feature selection/extraction.
 
 The rest of this document is structured as follows:
 \acs{sec}\,\ref{sec:materials_and_methods} presents the materials and methods used in
@@ -131,40 +136,6 @@ implementation; \acs{sec}\,\ref{sec:experiments} presents the experiments; and
 \ac{sec}\,\ref{sec:conclusion} presents the conclusions and further work.
 
 
-% % survey's framework 
-% \emph{
-% As discussed further in \acs{sec}\,\ref{subsubsec:CAD}, we identified and
-% characterized a common framework regarding the \acs{cad} systems. Stages
-% involved in \acs{cad} work-flow can be categorized into three distinctive
-% processes: (i) image regularization, (ii) \ac{cade}, (iii) \ac{cadx} (see
-% Fig.~\ref{fig:wkfcad}). Image regularisation focuses on formatting the data
-% while \ac{cade} and \ac{cadx} allow to detect possible lesions and distinguish
-% malignant from non-malignant tumours, respectively.
-% }
-
-% this review has presented an overview and classification of the research related
-% to \ac{cad} development for \ac{cap} using multi-parametric \ac{mri} data. we
-% aimed at providing background information regarding multi-parametric \ac{mri}
-% imaging techniques and a description of the work-flow in the different \ac{cad}
-% stages. the methods used in the literature for each of these stages have been
-% reviewed along with the available results of the \ac{cad} systems. moreover,
-% insight discussions and possible future research directions have also been
-% given. finally, a multi-parametric multi-vendor dataset has been made available
-% to the research community in order to provide a standardised platform for
-% \ac{cad} development and evaluation for \ac{cap} using multi-parametric
-% \ac{mri}.
-
-% In this regard, \ac{mpmri} is frequently
-% used to build robust \ac{cad} systems to detect, localize, and grade \ac{cap}.
-% In general, \ac{cad} systems are based on \ac{mpmri} which potentially combines
-% several of the following modalities~\citep{lemaitre2015computer}:
-% \ac{t2w}-\ac{mri}, \ac{dce}-\ac{mri}, \ac{adc} maps, and \ac{mrsi}.
-
-\begin{figure}
-Framework
-\caption{framework}
-\label{fig:wkfcad}  
-\end{figure}
 
 % survey's summary
 \begin{figure}
@@ -220,17 +191,127 @@ a single \ac{dce}-\ac{mri} time series; the prostate's \ac{cg} on \ac{t2w}; plus
 all the lesion delineations, also on \ac{t2w}. A total of 5 volumes per case.
 
 
-\subsection{CaP framework}
-\label{sec:framework}
+\subsection{CaP framework} \label{sec:framework}
+
+\Acl{fig}~\ref{fig:wkfcad} illustrates the common \ac{cad}-\ac{cap} workflow
+resulting from the State-of-the-Art~\cite{lemaitre2015computer}, which 
+consists of three distinctive processes: (i) image regularization, (ii)
+\ac{cade} and (iii) \ac{cadx}. Image regularisation focuses on formatting the data
+while \ac{cade} and \ac{cadx} allow to detect possible lesions and distinguish
+malignant from non-malignant tumors, respectively.
+
 \begin{figure}
   \centering
 \input{./images/cad/cad_1.tex}
+\caption{framework}
+\label{fig:wkfcad}
 \end{figure}
 
-\subsection{Implementation}
+Three types of pre-processing are applied to \ac{mri} images: (i) noise filtering,
+(ii) bias correction, and (iii) standardization/normalization; whereas
+\ac{mrsi} data is processed to correct the phase, baseline and frequency
+as in \citeauthor{Chen2002}\,\cite{Chen2002}.
+%
+This study does not cover automatic prostate segmentation, therefore manual
+delineations from the \ac{gt} drive the registration where needed.
+The registration of the data is done as follows: (i) \ac{dce}-\ac{mri} volumes
+are rigidly registered within themselves, to remove any patient motion during
+the acquisition; (ii) non-rigid registration is performed between the
+\ac{t2w}-\ac{mri} and the rest of modalities.
+%
+In terms of \ac{cade}, for this study all the data within the prostate is
+considerate a potential lesion.
+%
+For feature detection, the complete set of features reported in the 56 studies
+covered by \cite{lemaitre2015computer} has been implemented.
+\Ac{tab}\,\ref{tab:feat} summarizes such features indicating its reported presence.
+%
+Data balancing stage is added to ensure proper learning in a scenario where the
+number of negative samples is greater than the positive, as this one.
+%
+\ac{rf} is used in feature selection and classification steps. This choice is
+motivated by the fact that
+(i) comparison of different classifiers is out of the
+scope of this work;
+(ii) \ac{rf} is a suited classifier for the task in
+hand~\cite{lemaitre2015computer};
+and (iii) the capability to interpret the feature selection when performed using \ac{rf}.
 
-The implementation of the registration (C++), normalization (Python), and classification pipeline (Python) are publicly available on GitHub\footnote{\url{https://github.com/I2Cvb/lemaitre-2016-nov/tree/master}}~\citep{lemaitre2016github}.
-The data used in this work are also publicly
+% \subparagraph{Feature selection}
+% \emph{Several feature extraction strategies are studied.}
+% \subparagraph{classifier choice}
+% \emph{
+%   There's no interest in this work in comparing one classifier against others,
+%   we just went for \ac{rf} since based of the state-of-the-art it works good and
+%   bring us some insights regarding the feature selection etc..
+%   \Ac{rf} is used as classifier, so that we can take advantage of feature
+%   selection combination etc... we also use adaboost and gradient boosting to
+%   create meta classifiers.
+% %
+%   Among those, \ac{rf} showed its reliability to lead to high classification performance.
+%   That is why, \ac{rf} has been chosen as our base classifier --- allowing for feature selection as well --- to perform classification of individual modality as well as the combination of modalities.
+% }
+
+\subparagraph{Other considerations:}
+(i) All the experiments are carried out using \ac{lopo}.
+(ii) The implementation of the registration (C++), normalization (Python), and
+classification pipeline (Python) are publicly available on
+GitHub\footnote{\url{https://github.com/I2Cvb/lemaitre-2016-nov/tree/master}}~\citep{lemaitre2016github}.
+
+\begin{table*}
+  \centering
+  \caption{Overview of the feature detection methods used in \ac{cad} systems.}\label{tab:feat}
+  \footnotesize
+  \begin{threeparttable}
+    \renewcommand{\arraystretch}{.7}
+    \begin{tabular}{p{.5\linewidth} p{.4\linewidth}}
+      \hline \\ [-1.5ex]
+      \textbf{Feature detection methods} & \textbf{Number of works using this feature} \\ \\ [-1.5ex]
+      \hline \\ [-1.5ex]
+      \textbf{\ac{mri} image:} & \\ \\ [-1.5ex]
+      \quad \textit{Voxel-wise detection} &  \\ \\ [-1.5ex]
+      \quad \quad Intensity-based & 16 \\ %0.285714285714 \\ %16/56
+      \quad \quad Edge-based & \\
+      \quad \quad \quad Prewitt operator & 4 \\
+      \quad \quad \quad Sobel operator & 9 \\
+      \quad \quad \quad Kirsch operator & 9 \\
+      \quad \quad \quad Gabor filtering & 3 \\
+      \quad \quad Texture-based & \\
+      \quad \quad \quad Haralick features & 11 \\
+      \quad \quad \quad Fractal analysis & 2 \\
+      \quad \quad \quad \Ac{dct} & 1 \\
+      \quad \quad \quad Wavelet-based features & 1 \\
+      \quad \quad \quad Gaussian filter bank & 1 \\
+      \quad \quad Position-based &  4 \\ \\ [-1.5ex]
+      \quad \textit{Region-wise detection} &  \\ \\ [-1.5ex]
+      \quad \quad Statistical-based & \\
+      \quad \quad \quad Percentiles & 10 \\
+      \quad \quad \quad Statistical-moments & 16 \\
+      \quad \quad Histogram-based & \\
+      \quad \quad \quad \acs{pdf} & 1 \\
+      \quad \quad \quad \acs{hog} & 1 \\
+      \quad \quad \quad Shape context & 1 \\
+      \quad \quad \quad \acs{lbp} & 1 \\
+      \quad \quad Anatomical-based & 3 \\
+      \textbf{\ac{dce} signal:} & \\ \\ [-1.5ex]
+      \quad Whole spectra approach & 2 \\
+      \quad Semi-quantitative approach & 5 \\
+      \quad Quantitative approach &  \\
+      \quad \quad Toft model & 7 \\
+      \quad \quad Brix model & 6 \\
+      \quad \quad Weibull function & 2 \\
+      \quad \quad PUM & 2 \\
+      \\ [-1.5ex]
+      \textbf{\ac{mrsi} signal:} & \\ \\ [-1.5ex]
+      \quad Whole spectra approach & 10 \\
+      \quad Quantification approach & 1 \\
+      \quad Wavelet-based approach & 1 \\
+      \hline
+    \end{tabular}
+    % \begin{tablenotes}
+    % \end{tablenotes}
+  \end{threeparttable}
+\end{table*}
 
 
 % Our \ac{mpmri} \ac{cad} system consists of seven different steps: pre-processing, segmentation, registration, feature detection, balancing, feature selection/extraction, and finally classification.
@@ -278,16 +359,6 @@ The data used in this work are also publicly
 
 % To approach the task of automatic detection of \ac{cap} using machine learning, one has to extract a variety of feature specific to the \ac{mri} modality as presented in \acs*{sec}\,\ref{subsec:chp3:img-clas:CADX-fea-dec}.
 
-% \subparagraph{\ac{dce}-\ac{mri} features}
-% In brief, the entire enhanced signal, semi-quantitative, and quantitative methods are computed. 
-% The reader can refer to \ac{sec}\,\ref{subsubsec:chp5:DCE-norm:stateart} for a detailed presentation of the different methods used.
-% \subparagraph{\ac{mrsi} features}
-% Due to unavailability of some unsuppressed water acquisition, absolute quantification as presented by \citeauthor{trigui2017automatic} could not be computed~\cite{trigui2017automatic}.
-% Therefore, likewise in~\cite{Parfait2012}, three different techniques are used to extract discriminative features: (i) relative quantification based on metabolite quantification, (ii) relative quantification based on bounds integration, and (iii) spectra extraction.
-% \subparagraph{Anatomical features}
-% Beside the aforementioned features specific at each modality, anatomical features as proposed by \citeauthor{Chen2002} and \citeauthor{Litjens2014} are computed~\cite{Chen2002,Litjens2014}.
-% Therefore, 4 different metrics are computed based on the relative distance to the prostate boundary as well as the prostate center, and the relative position in the Euclidean and cylindrical coordinate systems.
-
 % \paragraph{Feature extraction}
 % Feature selection and extraction are used in the experiment: (i) signal-based data --- i.e., \ac{mrsi} and \ac{dce}-\ac{mri} --- are decomposed using feature extraction methods while (ii) image-based features are selected through different feature selection methods.
 % These methods have been presented in \acs{sec}\,\ref{subsec:chp3:img-clas:CADX-fea-ext}.
@@ -325,13 +396,184 @@ The data used in this work are also publicly
 \section{Experiment and results}
 \label{sec:experiments}
 
+\Acl{sec}\,\ref{sec:experiments:mpmri-comparison} analyzes the impact of \ac{mpmri}, which
+is summarized in \Ac{fig}\,\ref{fig:modality-combination} where the results from
+individual modalities are compared to different strategies for combining the
+information brought by each modality.
+Whereas, \ac{sec}\,\ref{sec:experiments:light} discusses some particular aspects
+of the workflow in \Ac{sec}\,\ref{sec:framework} in order to bring each
+modality to its best light in order to compose \Ac{fig}\,\ref{fig:modality-combination:separeate_modalities}.
+
+\subsection{\ac{cap}-\ac{cad} bits}
+\label{sec:experiments:mpmri-comparison}
+\paragraph{The value of supplying \ac{dce} data directly}
+\paragraph{For the case of \ac{dce} data, a good normalization is all you need.}
+
+The features derived from the \ac{dce} modality can be categorized in: 
+(i) quantitative \emph{quantitative definition}.
+(ii) semi-quantitative \emph{semi-quantitative definition}
+or (iii) the entire signal.
+
+Despite literature favoring the first two group of
+features~\cite{lemaitre2015computer} \emph{because they integrate over the
+  singal independently}, we argue that a proper normalization of
+the entire signal that brings \emph{all the patients, all the under the same
+  coordinate system} leads to better results. 
+%
+\Acl{fig}\,\ref{fig:DCE-norm} compares the quantitative and semi-quantitative
+features against the entire \ac{dce} signal with (and without) normalization,
+showing that properly normalized data brings the most discriminating information
+from \ac{dce} modality.
+
+% \subparagraph{\ac{dce}-\ac{mri} features}
+% In brief, the entire enhanced signal, semi-quantitative, and quantitative methods are computed.
+% The reader can refer to \ac{sec}\,\ref{subsubsec:chp5:DCE-norm:stateart} for a detailed presentation of the different methods used.
+
+\begin{figure}
+  \hspace*{\fill}
+  \subfigure[Performance of the quantitative methods on \acs*{dce}.] {
+    \includegraphics[width=.45\textwidth]
+    {5_normalization/figures/DCE-normalization/normalized_methods_0.pdf}
+  }
+  \hfill
+  \subfigure[Performance of enhanced \acs*{dce} signal.]{
+  \includegraphics[width=.45\textwidth]
+  {5_normalization/figures/DCE-normalization/full_signal_0.pdf}
+  }
+  \hspace*{\fill}
+  \caption[DCE] {DCE}
+  \label{fig:DCE-norm}
+\end{figure}
+
+% \subparagraph{\ac{mrsi} features}
+% Due to unavailability of some unsuppressed water acquisition, absolute quantification as presented by \citeauthor{trigui2017automatic} could not be computed~\cite{trigui2017automatic}.
+% Therefore, likewise in~\cite{Parfait2012}, three different techniques are used to extract discriminative features: (i) relative quantification based on metabolite quantification, (ii) relative quantification based on bounds integration, and (iii) spectra extraction.
+% \subparagraph{Anatomical features}
+% Beside the aforementioned features specific at each modality, anatomical features as proposed by \citeauthor{Chen2002} and \citeauthor{Litjens2014} are computed~\cite{Chen2002,Litjens2014}.
+% Therefore, 4 different metrics are computed based on the relative distance to the prostate boundary as well as the prostate center, and the relative position in the Euclidean and cylindrical coordinate systems.
+
+\section{The advantage of mpmri}%\ac{mpmri}}
+\label{sec:experiments:mpmri-comparison}
+
+As aforementioned, \ac{fig}\,\ref{fig:modality-combination} compares the best
+results of each individual image modality (\ac{t2w}-\ac{mri}, \ac{dce}-\ac{mri},
+\ac{adc} map and \ac{mrsi}) in 
+\ac{fig}\,\ref{fig:modality-combination:separeate_modalities}) against three
+different manners of combining them in \ac{fig}\,\ref{fig:modality-combination:combined}:
+(i) in blue, a feature vector composed with the selected features of each image
+modality (those selected to produce
+\Ac{fig}\,\ref{fig:modality-combination:separeate_modalities}) is fitted to a
+\ac{rf} classifier.
+(ii) In green, the classifiers producing
+\Ac{fig}\,\ref{fig:modality-combination:separeate_modalities} are used to train
+a stacking classifier with a \ac{gb} as meta-classifier.
+And (iii) in red, all the features from all modalities (see
+\Ac{tab}\,\ref{tab:feat}) concatenated as a single vector are directly fitted to
+a \ac{rf} classifier.
+
+The best results are achieved using the last configuration with an \ac{auc} of
+$0.836 \pm 0.083$.
+\Acl{fig}\,\ref{fig:resultcad} illustrates qualitative results of this
+configuration by overlapping the probability map of having a \ac{cap} with the
+original \ac{t2w}-\ac{mri} slice, for 6 diverse patients.
+\emph{Something more comparing to single modality plot.}
+
+\begin{figure}
+  \hspace*{\fill}
+  \subfigure[] {
+    \includegraphics[width=.45\textwidth]
+    {content/figures/exp-1/t2w_adc.pdf}
+    \label{fig:modality-combination:separeate_modalities}
+  }
+  \hfill
+  \subfigure[Analysis of feature combination approaches after fine tuning.]{
+    \includegraphics[width=.45\textwidth]
+    {content/figures/exp-5/combine_all.pdf}
+    \label{fig:modality-combination:combined}
+  }
+  \hspace*{\fill}
+  \caption[modality combination] {Modality combination}
+  \label{fig:modality-combination}
+\end{figure}
+
+Due to the limited body of work using \ac{mrsi} data in \ac{cap}-\ac{cad}
+systems~\cite{lemaitre2015computer}, we also compare the stacking strategy with
+and without \ac{mrsi} data in order to see its influence. We observe that with
+no \ac{mrsi} data the final performance drops from 
+$0.786 \pm 0.098$ to $0.756 \pm 0.092$.
+This aligns with the fact that $29.2\%$ of the features selected when
+concatenating all the features from all modalities are in fact from \ac{mrsi}
+data (see \Ac{tab}\,\ref{tab:selfeatocc}).
+
+
 \section{Conclusion}
 \label{sec:conclusion}
 
+% this review has presented an overview and classification of the research related
+% to \ac{cad} development for \ac{cap} using multi-parametric \ac{mri} data. we
+% aimed at providing background information regarding multi-parametric \ac{mri}
+% imaging techniques and a description of the work-flow in the different \ac{cad}
+% stages. the methods used in the literature for each of these stages have been
+% reviewed along with the available results of the \ac{cad} systems. moreover,
+% insight discussions and possible future research directions have also been
+% given. finally, a multi-parametric multi-vendor dataset has been made available
+% to the research community in order to provide a standardised platform for
+% \ac{cad} development and evaluation for \ac{cap} using multi-parametric
+% \ac{mri}.
+
+% In this regard, \ac{mpmri} is frequently
+% used to build robust \ac{cad} systems to detect, localize, and grade \ac{cap}.
+% In general, \ac{cad} systems are based on \ac{mpmri} which potentially combines
+% several of the following modalities~\citep{lemaitre2015computer}:
+% \ac{t2w}-\ac{mri}, \ac{dce}-\ac{mri}, \ac{adc} maps, and \ac{mrsi}.
+
+\begin{table}
+  \caption{Selected feature and number of occurrence for \acs*{t2w}-\acs*{mri}, \acs*{adc} map, and one all the features are concatenated.}
+  \centering
+  \scriptsize
+  \begin{tabular}{llllll}
+    \toprule
+    \multicolumn{1}{c}{\textbf{\acs*{t2w}-\acs*{mri}}} & \multicolumn{1}{c}{\textbf{\acs*{adc}}} & \multicolumn{1}{c}{\textbf{\acs*{t2w}-\acs*{mri}}} & \multicolumn{1}{c}{\textbf{\acs*{adc}}} & \multicolumn{1}{c}{\textbf{\acs*{dce}-\acs*{mri}}} & \multicolumn{1}{c}{\textbf{\acs*{mrsi}}} \\
+    \cmidrule(lr){1-1} \cmidrule(lr){2-2} \cmidrule(lr){3-6}
+    8 edges & 1 \acs*{dct} & 113 Gabor filters & 53 Gabor filters & 14 samples  & 78 samples \\
+    155 Gabor filters & 32 Gabor filters & 1 phase congruency & 2 phase congruency & & \\ 
+    2 Haralick features & 1 phase congruency & 4 edges & & & \\
+    1 intensity & & 1 intensity & & & \\
+    4 \acs*{lbp} & & & & & \\
+    2 phase congruency & & & & & \\
+    \cmidrule(lr){1-1} \cmidrule(lr){2-2} \cmidrule(lr){3-6}
+    \multicolumn{1}{c}{\textbf{172 features}} & \multicolumn{1}{c}{\textbf{34 features}} & \multicolumn{4}{c}{\textbf{267 features}} \\
+    \bottomrule
+  \end{tabular}
+  \label{tab:selfeatocc}
+\end{table}
+
+
+\begin{landscape}
+\begin{figure}
+  \hspace*{\fill}
+  \subfigure[\acs*{auc} = 0.922]{\label{fig:pat634}\includegraphics[width=.45\textwidth]{content/figures/examples/patient_634.pdf}}
+  \hfill
+  \subfigure[\acs*{auc} = 0.942]{\label{fig:pat778}\includegraphics[width=.45\textwidth]{content/figures/examples/patient_778.pdf}}
+  \hfill
+  \subfigure[\acs*{auc} = 0.914]{\label{fig:pat1036}\includegraphics[width=.45\textwidth]{content/figures/examples/patient_1036.pdf}}
+  \hspace*{\fill}\\
+  \hspace*{\fill}
+  \subfigure[\acs*{auc} = 0.692]{\label{fig:pat634}\includegraphics[width=.45\textwidth]{content/figures/examples/patient_410.pdf}}
+  \hfill
+  \subfigure[\acs*{auc} = 0.879]{\label{fig:pat778}\includegraphics[width=.45\textwidth]{content/figures/examples/patient_784.pdf}}
+  \hfill
+  \subfigure[\acs*{auc} = 0.735]{\label{fig:pat1036}\includegraphics[width=.45\textwidth]{content/figures/examples/patient_1041.pdf}}
+  \hspace*{\fill}
+  \caption[Illustration the resulting detection of our \acs*{mpmri} \acs*{cad} for \acs*{cap} detection.]{Illustration the resulting detection of our \acs*{mpmri} \acs*{cad} for \acs*{cap} detection. The blue contours corresponds to the \ac{cap} while the \texttt{jet} overlay represents the probability.}
+  \label{fig:resultcad}
+\end{figure}
+\end{landscape}
 
 % \input{./content/chapter6.tex}
 
 
+Therefore, including \ac{mrsi} into the classification pipeline increases the \ac{auc} from $0.756 \pm 0.092$ to $0.786 \pm 0.098$ for a gain of $0.030$.
 
 %%%%%%%%%%%%%%%%%%%% End comment
 
