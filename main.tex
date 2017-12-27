@@ -416,20 +416,17 @@ better fitting a given pharmacokinetic model such as Toft or Brix;
 out to embed the signal;
 or (iii) the entire signal.
 
-Despite literature favoring the first two group of
-features~\cite{lemaitre2015computer} \emph{because they integrate over the
-  singal independently}, we argue that a proper normalization of
-the entire signal that brings \emph{all the patients, all the under the same
-  coordinate system} leads to better results. 
+% Despite literature favoring the first two groups of
+% features~\cite{lemaitre2015computer} \emph{because they integrate over the
+%   singal independently}, we argue that a proper normalization of
+% the entire signal that brings \emph{all the patients, all the under the same
+%   coordinate system} leads to better results. 
 %
 \Acl{fig}\,\ref{fig:DCE-norm} compares the quantitative and semi-quantitative
 features against the entire \ac{dce} signal with (and without) normalization,
 showing that properly normalized data brings the most discriminating information
-from \ac{dce} modality.
-
-% \subparagraph{\ac{dce}-\ac{mri} features}
-% In brief, the entire enhanced signal, semi-quantitative, and quantitative methods are computed.
-% The reader can refer to \ac{sec}\,\ref{subsubsec:chp5:DCE-norm:stateart} for a detailed presentation of the different methods used.
+from \ac{dce} modality, closely followed by the semi-quantitative approaches.
+Based this results quantitative methods create the least discriminating space.
 
 \begin{figure}
   \hspace*{\fill}
@@ -484,7 +481,7 @@ original \ac{t2w}-\ac{mri} slice, for 6 diverse patients.
   \hspace*{\fill}
   \subfigure[] {
     \includegraphics[width=.45\textwidth]
-    {content/figures/exp-1/all.pdf}
+    {sk_images/all.pdf}
     \label{fig:modality-combination:separeate_modalities}
   }
   \hfill
@@ -507,6 +504,59 @@ This aligns with the fact that $29.2\%$ of the features selected when
 concatenating all the features from all modalities are in fact from \ac{mrsi}
 data (see \Ac{tab}\,\ref{tab:selfeatocc}).
 
+\begin{figure}
+  \hspace*{\fill}
+  \subfigure[\acs{t2w}]{
+    \includegraphics[width=.45\textwidth]
+    {sk_images/t2w.pdf}
+  }
+  \hfill
+  \subfigure[\acs{adc}] {
+    \includegraphics[width=.45\textwidth]
+    {sk_images/adc.pdf}
+  }
+  \hspace*{\fill}\\
+  \hspace*{\fill}
+  \subfigure[\acs{dce}] {
+    \includegraphics[width=.45\textwidth]
+    {sk_images/dce.pdf}
+  }
+  \hfill
+  \subfigure[\acs{mrsi}]{
+    \includegraphics[width=.45\textwidth]
+    {sk_images/mrsi.pdf}
+  }
+  \hspace*{\fill}
+  \caption[] {Imbalance effect}
+  \label{fig:imbalance}
+\end{figure}
+
+\begin{figure}
+  \hspace*{\fill}
+  \subfigure[\acs{t2w} feature importance]{
+    \includegraphics[width=.45\textwidth]
+    {sk_images/feature_importance_t2w_annotated.pdf}
+  }
+  \hfill
+  \subfigure[\acs{adc} feature importance] {
+    \includegraphics[width=.45\textwidth]
+    {sk_images/feature_importance_adc_annotated.pdf}
+  }
+  \hspace*{\fill}\\
+  \hspace*{\fill}
+  \subfigure[\acs{dce} feature importance] {
+    \includegraphics[width=.45\textwidth]
+    {sk_images/feature_importance_dce_annotated.pdf}
+  }
+  \hfill
+  \subfigure[\acs{mrsi} feature importance]{
+    \includegraphics[width=.45\textwidth]
+    {sk_images/feature_importance_mrsi_annotated.pdf}
+  }
+  \hspace*{\fill}
+  \caption[DCE] {Feature importance}
+  \label{fig:feat_importance}
+\end{figure}
 
 \section{Conclusion}
 \label{sec:conclusion}
