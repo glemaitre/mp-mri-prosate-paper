@@ -227,7 +227,8 @@ covered by \cite{lemaitre2015computer} has been implemented.
 \Ac{tab}\,\ref{tab:feat} summarizes such features indicating its reported presence.
 %
 Data balancing stage is added to ensure proper learning in a scenario where the
-number of negative samples is greater than the positive, as this one.
+number of negative samples is far greater than the positive, as this one, where
+the voxels with labeled as cancer far less than the healthy. 
 %
 \ac{rf} is used in feature selection and classification steps. This choice is
 motivated by the fact that
@@ -396,11 +397,13 @@ GitHub\footnote{\url{https://github.com/I2Cvb/lemaitre-2016-nov/tree/master}}~\c
 \section{Experiment and results}
 \label{sec:experiments}
 
-\Acl{sec}\,\ref{sec:experiments:mpmri-comparison} analyzes the impact of \ac{mpmri}, which
-is summarized in \Ac{fig}\,\ref{fig:modality-combination} where the results from
-individual modalities are compared to different strategies for combining the
-information brought by each modality.
-Whereas, \ac{sec}\,\ref{sec:experiments:light} discusses some particular aspects
+The summary of this work can be found in \ac{sec}\,\ref{sec:experiments:mpmri-comparison}
+where the results from individual modalities in
+\Ac{fig}\,\ref{fig:modality-combination:separeate_modalities} are compared to
+different strategies for combining all the modalities together in \Ac{fig}\,\ref{fig:modality-combination:combined}.
+The rest,
+\ac{sec}\,\ref{sec:experiments:mpmri-comparison}-\ref{sec:experiments:features}, 
+discusses particular aspects
 of the workflow in \Ac{sec}\,\ref{sec:framework} in order to bring each
 modality to its best light in order to compose \Ac{fig}\,\ref{fig:modality-combination:separeate_modalities}.
 
@@ -425,8 +428,8 @@ or (iii) the entire signal.
 \Acl{fig}\,\ref{fig:DCE-norm} compares the quantitative and semi-quantitative
 features against the entire \ac{dce} signal with (and without) normalization,
 showing that properly normalized data brings the most discriminating information
-from \ac{dce} modality, closely followed by the semi-quantitative approaches.
-Based this results quantitative methods create the least discriminating space.
+from \ac{dce} modality, closely followed by the semi-quantitative approaches,
+and the least discriminating space corresponds to the qualitative methods.
 
 \begin{figure}
   \hspace*{\fill}
@@ -450,6 +453,84 @@ Based this results quantitative methods create the least discriminating space.
 % \subparagraph{Anatomical features}
 % Beside the aforementioned features specific at each modality, anatomical features as proposed by \citeauthor{Chen2002} and \citeauthor{Litjens2014} are computed~\cite{Chen2002,Litjens2014}.
 % Therefore, 4 different metrics are computed based on the relative distance to the prostate boundary as well as the prostate center, and the relative position in the Euclidean and cylindrical coordinate systems.
+
+\subsection{Imbalance}
+\label{sec:experiments:imbalance}
+
+\Acf{fig}\,\ref{fig:imbalance} show the effect of applying under- and
+over-sampling techniques to mitigate the fact that in prostate data the amount
+of healthy voxels is much larger than the cancerous voxels.
+The under-sampling techniques reduce the number of samples of the majority class
+to be equal to the minority class.
+On the other hand, the over-sampling techniques generates new samples in the minority class, aiming at equalizing
+the number of samples in both classes.
+\ac{iht}, \ac{nm1}, \ac{nm2} and \ac{nm3} belong to under-sampling methods,
+while \ac{smote}, \ac{smoteb1} and \ac{smoteb2} are over-sampling methods.
+
+The results in \ac{fig}\,\ref{fig:imbalance} show that applying balancing
+methods increases the \ac{auc} score for \ac{t2w}, \ac{adc} and \ac{dce}
+modalities. Despite not rising the \ac{auc} score for the \ac{mrsi} case,
+balancing reduces the variability of the \ac{auc} score. The results also show
+that the optimal strategy varies depending on the modality and this choice has
+to be made empirically.
+
+\begin{figure}
+  \hspace*{\fill}
+  \subfigure[\acs{t2w}\quad(reference \ac{auc} = $0.72\pm0.122$)]{
+    \includegraphics[width=.45\textwidth]
+    {images/imbalance_effect/t2w.pdf}
+  }
+  \hfill
+  \subfigure[\acs{adc}\quad(reference \ac{auc} = $0.697\pm0.128$)] {
+    \includegraphics[width=.45\textwidth]
+    {images/imbalance_effect/adc.pdf}
+  }
+  \hspace*{\fill}\\
+  \hspace*{\fill}
+  \subfigure[\acs{dce}\quad(reference \ac{auc} = $0.679\pm0.136$)] {
+    \includegraphics[width=.45\textwidth]
+    {images/imbalance_effect/dce.pdf}
+  }
+  \hfill
+  \subfigure[\acs{mrsi}\quad(reference \ac{auc} = $0.695\pm0.159$)]{
+    \includegraphics[width=.45\textwidth]
+    {images/imbalance_effect/mrsi.pdf}
+  }
+  \hspace*{\fill}
+  \caption[] {Effect of performing data balancing at each modality. The
+    \acs{auc} reference of each modality corresponds to the same values as in \ac{fig}\,\ref{fig:modality-combination:separeate_modalities}}
+  \label{fig:imbalance}
+\end{figure}
+
+\subsection{Features}
+\label{sec:experiments:features}
+
+\begin{figure}
+  \hspace*{\fill}
+  \subfigure[\acs{t2w} feature importance]{
+    \includegraphics[width=.45\textwidth]
+    {images/feature_importance/feature_importance_t2w_annotated.pdf}
+  }
+  \hfill
+  \subfigure[\acs{adc} feature importance] {
+    \includegraphics[width=.45\textwidth]
+    {images/feature_importance/feature_importance_adc_annotated.pdf}
+  }
+  \hspace*{\fill}\\
+  \hspace*{\fill}
+  \subfigure[\acs{dce} feature importance] {
+    \includegraphics[width=.45\textwidth]
+    {images/feature_importance/feature_importance_dce_annotated.pdf}
+  }
+  \hfill
+  \subfigure[\acs{mrsi} feature importance]{
+    \includegraphics[width=.45\textwidth]
+    {images/feature_importance/feature_importance_mrsi_annotated.pdf}
+  }
+  \hspace*{\fill}
+  \caption[DCE] {Feature importance}
+  \label{fig:feat_importance}
+\end{figure}
 
 \section{The advantage of mpmri}%\ac{mpmri}}
 \label{sec:experiments:mpmri-comparison}
@@ -485,9 +566,9 @@ original \ac{t2w}-\ac{mri} slice, for 6 diverse patients.
     \label{fig:modality-combination:separeate_modalities}
   }
   \hfill
-  \subfigure[Analysis of feature combination approaches after fine tuning.]{
+  \subfigure[]{
     \includegraphics[width=.45\textwidth]
-    {content/figures/exp-5/combine_all.pdf}
+    {images/combine_all.png}
     \label{fig:modality-combination:combined}
   }
   \hspace*{\fill}
@@ -504,59 +585,6 @@ This aligns with the fact that $29.2\%$ of the features selected when
 concatenating all the features from all modalities are in fact from \ac{mrsi}
 data (see \Ac{tab}\,\ref{tab:selfeatocc}).
 
-\begin{figure}
-  \hspace*{\fill}
-  \subfigure[\acs{t2w}]{
-    \includegraphics[width=.45\textwidth]
-    {images/imbalance_effect/t2w.pdf}
-  }
-  \hfill
-  \subfigure[\acs{adc}] {
-    \includegraphics[width=.45\textwidth]
-    {images/imbalance_effect/adc.pdf}
-  }
-  \hspace*{\fill}\\
-  \hspace*{\fill}
-  \subfigure[\acs{dce}] {
-    \includegraphics[width=.45\textwidth]
-    {images/imbalance_effect/dce.pdf}
-  }
-  \hfill
-  \subfigure[\acs{mrsi}]{
-    \includegraphics[width=.45\textwidth]
-    {images/imbalance_effect/mrsi.pdf}
-  }
-  \hspace*{\fill}
-  \caption[] {Imbalance effect}
-  \label{fig:imbalance}
-\end{figure}
-
-\begin{figure}
-  \hspace*{\fill}
-  \subfigure[\acs{t2w} feature importance]{
-    \includegraphics[width=.45\textwidth]
-    {images/feature_importance/feature_importance_t2w_annotated.pdf}
-  }
-  \hfill
-  \subfigure[\acs{adc} feature importance] {
-    \includegraphics[width=.45\textwidth]
-    {images/feature_importance/feature_importance_adc_annotated.pdf}
-  }
-  \hspace*{\fill}\\
-  \hspace*{\fill}
-  \subfigure[\acs{dce} feature importance] {
-    \includegraphics[width=.45\textwidth]
-    {images/feature_importance/feature_importance_dce_annotated.pdf}
-  }
-  \hfill
-  \subfigure[\acs{mrsi} feature importance]{
-    \includegraphics[width=.45\textwidth]
-    {images/feature_importance/feature_importance_mrsi_annotated.pdf}
-  }
-  \hspace*{\fill}
-  \caption[DCE] {Feature importance}
-  \label{fig:feat_importance}
-\end{figure}
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -675,3 +703,5 @@ Please check with the journal's author guidelines whether author biographies are
 \graphicalabstract{example-image-1x1}{Please check the journal's author guildines for whether a graphical abstract, key points, new findings, or other items are required for display in the Table of Contents.}
 
 \end{document}
+
+%  LocalWords:  voxels
