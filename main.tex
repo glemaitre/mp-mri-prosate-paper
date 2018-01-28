@@ -170,9 +170,6 @@ implementation; \acs{sec}\,\ref{sec:experiments} presents the experiments; and
 \label{tab:survey-summary}
 \end{figure}
 
-
-
-
 \section{Materials and Methods} \label{sec:materials_and_methods}
 
 \subsection{Data}\label{sec:data}
@@ -259,60 +256,60 @@ and (iii) the capability to interpret the feature selection when performed using
 classification pipeline (Python) are publicly available on
 GitHub\footnote{\url{https://github.com/I2Cvb/lemaitre-2016-nov/tree/master}}~\citep{lemaitre2016github}.
 
-\begin{table*}
-  \centering
-  \caption{Overview of the feature detection methods used in \ac{cad} systems.}\label{tab:feat}
-  \footnotesize
-  \begin{threeparttable}
-    \renewcommand{\arraystretch}{.7}
-    \begin{tabular}{p{.5\linewidth} p{.4\linewidth}}
-      \hline \\ [-1.5ex]
-      \textbf{Feature detection methods} & \textbf{Number of works using this feature} \\ \\ [-1.5ex]
-      \hline \\ [-1.5ex]
-      \textbf{\ac{mri} image:} & \\ \\ [-1.5ex]
-      \quad \textit{Voxel-wise detection} &  \\ \\ [-1.5ex]
-      \quad \quad Intensity-based & 16 \\ %0.285714285714 \\ %16/56
-      \quad \quad Edge-based & \\
-      \quad \quad \quad Prewitt operator & 4 \\
-      \quad \quad \quad Sobel operator & 9 \\
-      \quad \quad \quad Kirsch operator & 9 \\
-      \quad \quad \quad Gabor filtering & 3 \\
-      \quad \quad Texture-based & \\
-      \quad \quad \quad Haralick features & 11 \\
-      \quad \quad \quad Fractal analysis & 2 \\
-      \quad \quad \quad \Ac{dct} & 1 \\
-      \quad \quad \quad Wavelet-based features & 1 \\
-      \quad \quad \quad Gaussian filter bank & 1 \\
-      \quad \quad Position-based &  4 \\ \\ [-1.5ex]
-      \quad \textit{Region-wise detection} &  \\ \\ [-1.5ex]
-      \quad \quad Statistical-based & \\
-      \quad \quad \quad Percentiles & 10 \\
-      \quad \quad \quad Statistical-moments & 16 \\
-      \quad \quad Histogram-based & \\
-      \quad \quad \quad \acs{pdf} & 1 \\
-      \quad \quad \quad \acs{hog} & 1 \\
-      \quad \quad \quad Shape context & 1 \\
-      \quad \quad \quad \acs{lbp} & 1 \\
-      \quad \quad Anatomical-based & 3 \\
-      \textbf{\ac{dce} signal:} & \\ \\ [-1.5ex]
-      \quad Whole spectra approach & 2 \\
-      \quad Semi-quantitative approach & 5 \\
-      \quad Quantitative approach &  \\
-      \quad \quad Toft model & 7 \\
-      \quad \quad Brix model & 6 \\
-      \quad \quad Weibull function & 2 \\
-      \quad \quad PUM & 2 \\
-      \\ [-1.5ex]
-      \textbf{\ac{mrsi} signal:} & \\ \\ [-1.5ex]
-      \quad Whole spectra approach & 10 \\
-      \quad Quantification approach & 1 \\
-      \quad Wavelet-based approach & 1 \\
-      \hline
-    \end{tabular}
-    % \begin{tablenotes}
-    % \end{tablenotes}
-  \end{threeparttable}
-\end{table*}
+% \begin{table*}
+%   \centering
+%   \caption{Overview of the feature detection methods used in \ac{cad} systems.}\label{tab:feat}
+%   \footnotesize
+%   \begin{threeparttable}
+%     \renewcommand{\arraystretch}{.7}
+%     \begin{tabular}{p{.5\linewidth} p{.4\linewidth}}
+%       \hline \\ [-1.5ex]
+%       \textbf{Feature detection methods} & \textbf{Number of works using this feature} \\ \\ [-1.5ex]
+%       \hline \\ [-1.5ex]
+%       \textbf{\ac{mri} image:} & \\ \\ [-1.5ex]
+%       \quad \textit{Voxel-wise detection} &  \\ \\ [-1.5ex]
+%       \quad \quad Intensity-based & 16 \\ %0.285714285714 \\ %16/56
+%       \quad \quad Edge-based & \\
+%       \quad \quad \quad Prewitt operator & 4 \\
+%       \quad \quad \quad Sobel operator & 9 \\
+%       \quad \quad \quad Kirsch operator & 9 \\
+%       \quad \quad \quad Gabor filtering & 3 \\
+%       \quad \quad Texture-based & \\
+%       \quad \quad \quad Haralick features & 11 \\
+%       \quad \quad \quad Fractal analysis & 2 \\
+%       \quad \quad \quad \Ac{dct} & 1 \\
+%       \quad \quad \quad Wavelet-based features & 1 \\
+%       \quad \quad \quad Gaussian filter bank & 1 \\
+%       \quad \quad Position-based &  4 \\ \\ [-1.5ex]
+%       \quad \textit{Region-wise detection} &  \\ \\ [-1.5ex]
+%       \quad \quad Statistical-based & \\
+%       \quad \quad \quad Percentiles & 10 \\
+%       \quad \quad \quad Statistical-moments & 16 \\
+%       \quad \quad Histogram-based & \\
+%       \quad \quad \quad \acs{pdf} & 1 \\
+%       \quad \quad \quad \acs{hog} & 1 \\
+%       \quad \quad \quad Shape context & 1 \\
+%       \quad \quad \quad \acs{lbp} & 1 \\
+%       \quad \quad Anatomical-based & 3 \\
+%       \textbf{\ac{dce} signal:} & \\ \\ [-1.5ex]
+%       \quad Whole spectra approach & 2 \\
+%       \quad Semi-quantitative approach & 5 \\
+%       \quad Quantitative approach &  \\
+%       \quad \quad Toft model & 7 \\
+%       \quad \quad Brix model & 6 \\
+%       \quad \quad Weibull function & 2 \\
+%       \quad \quad PUM & 2 \\
+%       \\ [-1.5ex]
+%       \textbf{\ac{mrsi} signal:} & \\ \\ [-1.5ex]
+%       \quad Whole spectra approach & 10 \\
+%       \quad Quantification approach & 1 \\
+%       \quad Wavelet-based approach & 1 \\
+%       \hline
+%     \end{tabular}
+%     % \begin{tablenotes}
+%     % \end{tablenotes}
+%   \end{threeparttable}
+% \end{table*}
 
 
 % Our \ac{mpmri} \ac{cad} system consists of seven different steps: pre-processing, segmentation, registration, feature detection, balancing, feature selection/extraction, and finally classification.
@@ -394,37 +391,416 @@ GitHub\footnote{\url{https://github.com/I2Cvb/lemaitre-2016-nov/tree/master}}~\c
 % The difference between \ac{adb} and \ac{gb} lie in the fact the this
 % minimization procedure.
 
+\subsubsection{Feature detection}
+
+\begin{table}
+  \caption{Features extracted in \acs*{t2w}-\acs*{mri} and \acs*{adc} volumes.}
+  \centering
+  \scriptsize
+  \begin{tabular}{llc}
+    \toprule
+    \textbf{Features} & \textbf{Parameters} & \textbf{\# dimensions} \\
+    \midrule
+    Intensity &  & 1 \\
+    \acs*{dct} decomposition & window: \SI[product-units=repeat]{9x9x3}{\px} & 243 \\
+    Kirsch filter &  & 2 \\
+    Laplacian filter &  & 1 \\
+    Prewitt filter &  & 3 \\
+    Scharr filter &  & 3 \\
+    Sobel filter &  & 3 \\
+    Gabor filters & 4 frequencies $f \in [0.05, 0.25]$; 4 azimuth angles $\alpha \in [0, \pi]$; 8 elevation angles $\alpha \in [0, 2\pi]$ & 256 \\
+    Phase congruency filter & 5 orientations; 6 scales & 3 \\
+    Haralick filter & window: \SI[product-units=repeat]{9x9x3}{\px}; \# grey levels: 8; distance: \SI{1}{\px}; 13 directions & 169 \\
+    \acs*{lbp} filter & 2 radii $r=\{1, 2\}$; 2 neighborhood sizes $N = \{8, 16\}$ & 6 \\
+    \bottomrule
+  \end{tabular}
+  \label{tab:featureadct2w}
+\end{table}
+
+\subparagraph{Image-based features (\ac{t2w}-\ac{mri}/\ac{adc})}
+
+A set of common features reported in~\cite{lemaitre2015computer} are
+computed. \Acl{tab}~\ref{tab:featureadct2w} summarizes the different features
+extracted with their corresponding parameters. Note that all these features are
+extracted at each voxel of the volume.
+
+FIXME: ADD INFORMATION ABOUT THE NORMALIZATION OF T2W
+
+The following set of filters characterizing edges are extracted: (i) Kirsch,
+(ii) Laplacian, (iii) Prewitt, (iv) Scharr, (v) Sobel, and (vi) Gabor. Apart of
+Kirsch filter, all filters are extracted in 3D to get more information using a
+volume and not a slice, as it is usually done. The extension of the most common
+edge detectors in 3D is obvious and will not be recalled. However, 3D Gabor
+filters~\cite{wang2005face} are not commonly used and we recall their
+formulation in \acs*{eq}\,\eqref{eq:gabor3d}.
+
+\begin{equation}
+  g(\mathbf{x};\boldsymbol{\sigma},f,\theta,\phi) = \hat{g}(\mathbf{x};\boldsymbol{\sigma}) \exp(j 2 \pi f \left( x \sin \theta \cos \phi + y \sin \theta \sin \phi + z \cos \theta \right)) \ ,
+  \label{eq:gabor3d}
+\end{equation}
+
+\noindent where,
+
+\begin{equation}
+  \hat{g}(\mathbf{x};\boldsymbol{\sigma}) = \frac{1}{{\left(2 \pi\right)}^{\frac{3}{2}}} \exp \left( -\frac{1}{2} \left( \frac{x^2}{\sigma_x^2} + \frac{y^2}{\sigma_y^2} + \frac{z^2}{\sigma_z^2} \right) \right) \ ,
+  \label{eq:gabor3dgaussian}
+\end{equation}
+
+\noindent where $\mathbf{x}$ is the position vector $\{x,y,z\}$,
+$\boldsymbol{\sigma}$ is the standard deviation vector
+$\{\sigma_x,\sigma_y,\sigma_z\}$ of the 3D Gaussian envelope, $f$ is the radial
+center frequency of the sine wave, $\theta$ is the elevation angle, and $\phi$
+is the azimuth angle.
+
+Additionally, features based on phase congruency as proposed by
+\citeauthor{kovesi1999image} are computed~\cite{kovesi1999image}. Therefore,
+from a set of Log-Gabor filter bank, the orientation image, the local weighted
+mean phase angle, and the phase angle are estimated at each voxel.
+
+To characterize the local texture, both second-order \ac{glcm}-based
+features~\cite{Haralick1973} and rotation invariant and uniform
+\ac{lbp}~\cite{ojala2002multiresolution} are extracted. To encode 3D
+information, the 13 first Haralick features are computed for the 13 possible
+directions. For the same reason, the \ac{lbp} codes are computed for the
+three-orthogonal-planes of each \ac{mri} volume.
+
+\subparagraph{\ac{dce}-\ac{mri} features}
+
+Properties of \ac{dce}-\ac{mri} are usually extracted using quantitative or
+semi-quantitative approaches~\cite{lemaitre2015computer}.
+
+Quantitative approaches uses pharmacokinetic modeling based on a
+bicompartment model, namely Brix~\cite{brix1991pharmacokinetic} and
+Tofts~\cite{tofts1995quantitative} models. The parameters of the Brix model
+are inferred by assuming a linear relationship between the media concentration
+and the \ac{mri} signal intensity. However, this assumption has been shown to
+lead to inaccurate estimations of the pharmacokinetic
+parameters~\cite{heilmann2006determination}. In contrast, the Tofts model
+requires the conversion of \ac{mri} signal intensity to concentration, which
+becomes a non-linear relationship using a specific equation of \ac{mri}
+sequences (e.g., FLASH sequence). Tofts modeling, however, is highly
+complex~\cite{gliozzi2011phenomenological}. Achieving the conversion using the
+non-linear approach requires the acquisition of a T$_1$ map which is not always
+possible during clinical examination. Additionally, the parameter calculation
+requires the \ac{aif} which is challenging to measure and can also lead to an
+inaccurate estimation.
+
+Semi-quantitative approaches are mathematical rather than
+pharmacokinetic because no pharmacokinetic assumptions regarding the
+relationship between the \ac{mri} signal and the contrast agent are
+made~\cite{huisman2001accurate,gliozzi2011phenomenological}. These methods are
+advantageous because they do not require any knowledge of the \ac{mri} sequence
+or any conversion from signal intensity to concentration. However, they present
+some limitations: the heuristic approach proposed
+by~\citeauthor{huisman2001accurate} requires an initial estimate of the
+standard deviation of the signal noise and some manual
+tuning~\cite{huisman2001accurate}.
+
+Nevertheless, all of the presented methods suffer from the following two major
+drawbacks: (i) inter-patient variability and (ii) loss of information. The
+inter-patient variability is mainly due to the acquisition process and
+consequently leads to generalization issues in applying a machine learning
+algorithm. All previous methods extract few discriminative parameters to
+describe the \ac{dce}-\ac{mri} signal which might lead to a loss of
+information. Therefore, in addition of extracting all presented models, we
+propose a method to normalize \ac{dce}-\ac{mri} to reduce inter-patient
+variations and thus allowing to use the entire \ac{dce}-\ac{mri} signal without
+loss of information.
+
+FIXME: EXPERIMENT XX INVESTIGATES WHICH STRATEGIES IS THE BEST WHEN EXTRACTING
+INFORMATION FROM DCE MRI.
+
+\begin{figure*}
+  \centering
+  \hspace*{\fill}
+  \subfigure[]{\label{subfig:pathhist}\includegraphics[width=1\textwidth]{images/DCE-normalization/heatmaprep.pdf}} \hfill
+  \hspace*{\fill}
+  \\
+  \hspace*{\fill}
+  \subfigure[$I_0$: 117; $t_0$: 6\textsuperscript{th} serie; wider st. dev.]{\label{subfig:pat1}\includegraphics[width=.49\textwidth]{images/DCE-normalization/pat1_annotated.pdf}} \hfill
+  \subfigure[$I_0$: 103; $t_0$: 4\textsuperscript{th} serie; narrower std. dev.]{\label{subfig:pat2}\includegraphics[width=.49\textwidth]{images/DCE-normalization/pat2_annotated.pdf}} \hfill
+  \hspace*{\fill}
+  \caption{\protect\subref{subfig:pathhist} Illustration of the heatmap
+    representation: all \ac*{pdf}s of the prostate gland are concatenated
+    together to build an heatmap;
+    \protect\subref{subfig:pat1}-\protect\subref{subfig:pat2} Heatmap of 2
+    patients revealing the three types of inter-patient variations: intensity
+    shift ($\Delta_i$), time shift ($\Delta_t$), and intensity scale
+    ($\alpha_i$).}
+  \label{fig:heatmap}
+\end{figure*}
+
+In \ac{dce}-\ac{mri}, the intensity \ac{pdf} of the prostate gland does not
+follow a unique type of distribution such as Rician or Gaussian distribution,
+as shown in Fig.\,\ref{subfig:pathhist}. Indeed, the inter-patient variations
+are more complex due to the temporal acquisition. A better means of observing
+these variations is to represent the intensity \ac{pdf} of the prostate gland
+over time--- requiring segmentation of the prostate ---using a heatmap
+representation as shown in Fig.\,\ref{subfig:pathhist}. By analyzing this
+heatmap representation across patients (see Fig.\,\ref{subfig:pat2}), the
+following variations are highlighted: (i) intensity offsets ($\Delta_i$) of the
+\ac{pdf} peak, (ii) a time offset ($\Delta_t$) depending on the contrast agent
+arrival, and (iii) a change of scale ($\alpha_i$) related to the signal
+enhancement. Therefore, our normalization method should attenuate all of these
+variations and be performed globally across the different time sequences rather
+than for each independent sequence.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.45\linewidth]{images/DCE-normalization/estimator.pdf}
+  \caption{Illustration of the estimator found using the shortest-path through
+    the graph.}
+  \label{fig:estimator}
+\end{figure}
+
+\emph{Graph-based intensity offsets correction} Before standardizing each
+sequence, the first step of the normalization process is to cancel the
+intensity specific at each patient, which occurs due to the media injection. As
+previously mentioned, the intensity \ac{pdf} does not always follow a Rician or
+a Gaussian distribution over time, in \ac{dce}-\ac{mri}. Therefore, the mean of
+these distributions cannot be used as a potential estimate for these
+offsets. Additionally, these offsets should be characterized by a smooth
+transition between series over time.  Thus, this problem is solved using the
+graph-theory: considering the intensity \ac{pdf} over time as shown in
+Fig.\,\ref{subfig:pathhist}, the offsets correspond to the boundary splitting,
+the heatmap into two partitions such that they are as close as possible to the
+peak of the intensity \ac{pdf} (see Fig.\,\ref{fig:estimator} for an
+illustration). Given the heatmap, a directed weighted graph
+$\mathcal{G}=(\mathcal{V}, \mathcal{E})$ is built by taking each bar---, i.e.,
+the probability for a given time and pixel intensity---, of the heatmap as a
+node and connecting each pair of bars by an edge. The edge weight $w_{ij}$
+between two nodes $i$ and $j$ corresponds to two pixels at positions
+$(x_i, y_i)$ and $(x_j, y_j)$, respectively, is defined as in
+Eq.\,\eqref{eq:weight}, as follows:
+
+\begin{equation}\small
+  w_{ij} = \begin{cases}
+    \alpha \exp(1 - \frac{H(i)}{\max(H)})       & \text{if } x_j = x_i + 1 \text{ and } y_j = y_i, \\
+    (1 - \alpha) \exp(1 - \frac{H(i)}{\max(H)}) & \text{if } x_j = x_i \text{ and } y_j = y_i + 1, \\
+    0                                           & \text{otherwise},
+  \end{cases}
+  \label{eq:weight}
+\end{equation}
+
+\noindent where $H$ is the heatmap, and $\alpha$ is a smoothing parameter
+controlling for the partitioning.
+
+Therefore, these offsets related to $\Delta_i$ are estimated by finding the
+shortest-path to cross the graph using Dijkstra's algorithm.  The entry and
+exiting nodes are set to be the bin with the maximum probability for the first
+value in the \ac{dce}-\ac{mri} series and the bin corresponding to the median
+value for the last value of the \ac{dce}-\ac{mri} series, respectively.  To
+ensure a robust estimation of these offsets, the process of finding the
+shortest-path is repeated by shifting the data and updating the heatmap as well
+as the graph $\mathcal{G}$. The procedure is stopped once the offset found does
+not change. In general, this process is not repeated more than 3 times.  The
+parameter $\alpha$ is set to $0.9$, empirically. Figure~\ref{fig:estimator}
+illustrates the final estimation of the offsets, $\Delta_i$ (i.e., red
+landmark), found for each value of the \ac{dce}-\ac{mri} series.  Therefore,
+each intensity offset is subtracted for each \ac{dce}-\ac{mri}.
+
+\begin{figure*}
+  \centering
+  \hspace*{\fill}
+  \subfigure[\acs*{rmse} computed for each patient of our dataset.]{\label{fig:rmse}\includegraphics[width=.44\textwidth]{images/DCE-normalization/rmse.pdf}} \hfill
+  \subfigure[\acs*{rmse} after alignment using the curve parametric model.]{\label{fig:rmseal}\includegraphics[width=.49\textwidth]{images/DCE-normalization/rmse_aligned.pdf}}
+  \hspace*{\fill}
+  \caption{Illustration of the correction of the time offset and the data
+    dispersion.}
+  \label{fig:curveal}
+\end{figure*}
+
+\emph{Time offset and data dispersion correction} The next variations to
+correct are the time offset, $\Delta_t$, and the data dispersion,
+$\sigma_i$. By computing the \ac{rmse} of the intensities for each value of the
+\ac{dce}-\ac{mri} series, one can observe these two variations as shown in
+Fig.\,\ref{fig:rmse}. Therefore, to correct these variations, we propose the
+registration of each patient \ac{rmse} to a mean model that corresponds to the
+mean of all patients' \ac{rmse} values. The parametric model required to
+perform the registration is formulated in Eq.\,\eqref{eq:model}, as follows:
+
+\begin{equation}
+  T(\alpha, \tau, f(t)) = \alpha f(t - \tau) ,
+  \label{eq:model}
+\end{equation}
+
+\noindent where $\alpha$ and $\tau$ are the two parameters handling the time
+offset $\Delta_i$ and the global scale $\sigma_i$, respectively, $f(\cdot)$ is
+the \ac{rmse} function defined as follows:
+
+\begin{equation}
+  f(t) = \sqrt{ \left( \frac{\sum_{n=1}^{N} x(t)_{n}^2}{N}  \right) },
+  \label{eq:rmsd}
+\end{equation}
+
+\noindent where $x(t)_n$ is the shifted intensity of a sample from a specific
+\ac{dce}-\ac{mri} series value at time $t$ from a total number of $N$ samples.
+Therefore, the registration problem is equivalent to:
+
+\begin{equation}
+  \argmin_{\alpha, \tau} = \sum_{t=1}^{N} \left[ T\left(\alpha, \tau, f(t)\right) - \mu(t) \right]^{2} ,
+  \label{eq:cost}
+\end{equation}
+
+\noindent where $\mu(\cdot)$ is the mean model and, $N$ is the number of values
+in the \ac{dce}-\ac{mri} series.
+
+An illustration of the correction applied to each \ac{rmse} of the patients is
+shown in Fig.\,\ref{fig:rmseal}. Once all of these parameters have been
+determined, the data are shifted and scaled. The resulting normalized data can
+be used into two ways: (i) each normalized signal can be used as a whole to
+determine if the corresponding voxel is healthy or cancerous or (ii) the
+normalized data can be fitted using a quantitative method, as presented in the
+next section.
+
+\subparagraph{\ac{mrsi} features}
+
+Two strategies are commonly used to extract discriminative features from
+\ac{mrsi}: (i) relative quantification based on metabolite quantification and
+(ii) spectra extraction~\cite{Parfait2012}.
+
+In relative quantification based on metabolite quantification, citrate and
+choline peaks are robustly fitted and integrated. Therefore, the relative
+concentrations of citrate and choline are quantified using a Gaussian
+mixture. The citrate peak is modeled as in \acs{eq}\,\eqref{eq:costcit}.
+
+\begin{equation}
+  M_1(x; \mathbf{w}) = \alpha_1 \mathcal{N}(x; \mu, \sigma_1) + \alpha_2 \mathcal{N}(x; \mu + \delta_2, \sigma_2) + \alpha_3 \mathcal{N(x; \mu - \delta_3, \sigma_3)} \ ,
+  \label{eq:costcit}
+\end{equation}
+
+\noindent where $\mathcal{N}(\cdot)$ is a Gaussian distribution, $\mu$ is the
+central mean of the citrate, $\delta_2$ and $\delta_3$ are the shifts from the
+citrate central peak to the citrate side peaks,
+$\{\alpha_1, \alpha_2, \alpha_3\}$ are the amplitude factors of each Gaussian
+distribution, and $\{\sigma_1, \sigma_2, \sigma_3\}$ are the standard
+deviations of each Gaussian distribution. Additionally, we defined $\mathbf{w}$
+as the vector containing the free parameters.
+\Acl{eq}~\eqref{eq:costcit} is minimized under constraints as in
+\acs{eq}\,\eqref{eq:mincostcit}.
+
+\begin{equation}
+\begin{aligned}
+& \argmin_{\mathbf{w}} 
+& & | S(x) - M_1(x; \mathbf{w}) |^{2} \ , \label{eq:mincostcit} \\
+& \text{subject to}
+& & 2.54 < \mu < 2.68 \ , \\
+&&& 0.06 < \delta_1, \delta_2 < 0.16 \ , \\
+&&& 0.01 < \sigma_1, \sigma_2, \sigma_3 < 0.1 \ , \\
+&&& \alpha_1, \alpha_2, \alpha_3 > 0 \ ,
+\end{aligned}
+\end{equation}
+
+\noindent where $S(x)$ is the \ac{mrsi} signal. The different constraints are
+empirically set but based on the \emph{a priori} location of the peaks.
+The choline metabolite is quantified on a similar manner assuming that there is
+only a single Gaussian distribution rather than a mixture. Therefore the
+problem is formulated as:
+
+\begin{equation}
+  M_2(x; \mu, \sigma) = \alpha \mathcal{N}(x; \mu, \sigma) \ ,
+  \label{eq:costcho}
+\end{equation}
+
+\noindent where $\mathcal{N}(\cdot)$ is a Gaussian distribution, $\mu$ is the
+center of the choline, $\alpha$ is the amplitude factor, and $\sigma$ is the
+standard deviation. The optimization is performed such as:
+
+\begin{equation}
+\begin{aligned}
+& \argmin_{\mathbf{\mu, \sigma}} 
+& & | S(x) - M_2(x; \mu, \sigma) |^{2} \ , \label{eq:mincostcho} \\
+& \text{subject to}
+& & 3.17 < \mu < 3.21 \ , \\
+&&& 0.001 < \sigma < 0.02 \ , \\
+&&& \alpha > 0 \ .
+\end{aligned}
+\end{equation}
+
+Finally, the relative concentrations are estimated by integrating the fitted
+functions.
+
+The latter method uses the raw \ac{mrsi} signal from \SIrange{2}{4}{\ppm} as
+proposed in~\cite{Parfait2012}.
+
+FIXME: EXPERIMENT XX INVESTAGES WHICH STRATEGY IS THE BEST.
+
+\subsubsection{Data balancing}
+
+Imbalanced dataset is a recurrent issue in classification. A dataset is
+imbalanced when a class is over-represented compared to other classes. In our
+application, the number of cancerous voxels is under-represented compared to
+healthy voxels. In classification, imbalanced datasets are either under- or
+over-sampled ahead of training, avoiding the classifiers to learn a bias toward
+the over-represented class. In this section, we present the different methods
+which we used to alleviate this issue.
+
+FIXME: EXPERIMENT XX INVESTIGATES WHICH METHODS IS THE BEST.
+
+\subparagraph{\Acl*{us1}} Dataset can be balanced by \ac{us1} samples
+from the over-represented classes and is referred to as \ac{us1} techniques.
+
+\Ac{nm} offers three different methods to under-sample the majority
+class~\cite{mani2003knn}. In \ac{nm1}, samples from the majority class are
+selected such that for each sample, the average distance to the $k$ \ac{nn}
+samples from the minority class is minimum. \ac{nm2} diverges from \ac{nm1} by
+considering the $k$ farthest neighbours samples from the minority class. In
+\ac{nm3}, a subset $M$ containing samples from the majority class is generated
+by finding the $m$ \ac{nn} from each sample of the minority class. Then,
+samples from the subset $M$ are selected such that for each sample, the average
+distance to the $k$ \ac{nn} samples from the minority class is maximum. In our
+experiment, $k$ and $m$ are fixed to 3.
+
+\Ac{iht} select samples with a high hardness
+threshold~\cite{smith2014instance}. Hardness indicates the likelihood of
+mis-classification rate for each samples. The notation of instance hardness
+are drawn through the decomposition of $p(h \vert t)$ using Bayes' theorem,
+where $h$ represent the mapping function used to map input features to their
+corresponding labels and $t$ represents the training set.
+\begin{equation}
+  IH_h(\langle x_{i}, y_{i}\rangle) = 1 - p(y_i \vert x_i, h).\
+  \label{eq:iht}
+\end{equation}
+Therefore, under-sampling is performed by keeping the most probable samples ---
+i.e, filtering the samples with high hardness value --- through \ac{kcv}
+training sets while considering specific threshold for filtering.
+
+\subparagraph{\Acl*{os}}
+In contrast to \ac{us1} techniques, dataset can be balanced by \ac{os} the
+samples from the under-represented class.
+
+\Ac{smote} is a method to generate new synthetic
+samples~\cite{chawla2002smote}. Let define $x_i$ as a sample belonging to the
+minority class. Let define $x_{nn}$ as a randomly selected sample from the
+$k$-\ac{nn} of $x_i$, with $k$ set to 3. A new sample $x_j$ is generated such
+that $x_j = x_i + \sigma \left( x_{nn} - x_i \right)$, where $\sigma$ is a
+random number in the interval $\left[0,1\right]$. \Ac{smoteb1} over-samples the
+minority class samples similarly to \ac{smote}~\cite{han2005borderline}.
+However, instead of using all the minority samples, it focuses on the
+borderline samples of minority class.  Borderline samples simply indicate the
+samples that are closer to the other class. First, the borderline samples of
+minority class are detected. A sample $x_{i}$ belongs to borderline samples if
+more than half of its $k$-\ac{nn} samples belong to the majority
+class. Synthetic data is then created based on \ac{smote} method for borderline
+samples, by selecting. Then, $s$-\ac{nn} of the minority class are selected to
+generate synthetic sample similarly to \ac{smote}. \Ac{smoteb2} performs
+similarly to \ac{smoteb1}~\cite{han2005borderline}.  However, the $s$-\ac{nn}
+are not computed by only considering the minority class but by considering both
+classes. The same generation rules as \ac{smote} is used.
+
+\subsubsection{Feature selection}
+
+\subsubsection{Feature combination}
+
 \section{Experiment and results}
 \label{sec:experiments}
 
-The summary of this work can be found in \ac{sec}\,\ref{sec:experiments:mpmri-comparison}
-where the results from individual modalities in
-\Ac{fig}\,\ref{fig:modality-combination:separeate_modalities} are compared to
-different strategies for combining all the modalities together in \Ac{fig}\,\ref{fig:modality-combination:combined}.
-The rest,
-\ac{sec}\,\ref{sec:experiments:mpmri-comparison}-\ref{sec:experiments:features}, 
-discusses particular aspects
-of the workflow in \Ac{sec}\,\ref{sec:framework} in order to bring each
-modality to its best light in order to compose \Ac{fig}\,\ref{fig:modality-combination:separeate_modalities}.
+\subsection{Cross-validation and classifier}
 
-\subsection{\ac{cap}-\ac{cad} bits}
-\label{sec:experiments:mpmri-comparison}
-\paragraph{The value of supplying \ac{dce} data directly}
-\paragraph{For the case of \ac{dce} data, a good normalization is all you need.}
+\subsection{Classification baseline}
 
-The features derived from the \ac{dce} modality can be categorized in: 
-(i) quantitative methods which describe the signal based on parameter values
-better fitting a given pharmacokinetic model such as Toft or Brix;
-(ii) semi-quantitative methods that use some descriptor such as wash in and wash
-out to embed the signal;
-or (iii) the entire signal.
+\subsubsection{Feature detection - \Ac{dce}-\ac{mri}}
 
-% Despite literature favoring the first two groups of
-% features~\cite{lemaitre2015computer} \emph{because they integrate over the
-%   singal independently}, we argue that a proper normalization of
-% the entire signal that brings \emph{all the patients, all the under the same
-%   coordinate system} leads to better results. 
-%
 \Acl{fig}\,\ref{fig:DCE-norm} compares the quantitative and semi-quantitative
 features against the entire \ac{dce} signal with (and without) normalization,
 showing that properly normalized data brings the most discriminating information
@@ -447,63 +823,38 @@ and the least discriminating space corresponds to the qualitative methods.
   \label{fig:DCE-norm}
 \end{figure}
 
-% \subparagraph{\ac{mrsi} features}
-% Due to unavailability of some unsuppressed water acquisition, absolute quantification as presented by \citeauthor{trigui2017automatic} could not be computed~\cite{trigui2017automatic}.
-% Therefore, likewise in~\cite{Parfait2012}, three different techniques are used to extract discriminative features: (i) relative quantification based on metabolite quantification, (ii) relative quantification based on bounds integration, and (iii) spectra extraction.
-% \subparagraph{Anatomical features}
-% Beside the aforementioned features specific at each modality, anatomical features as proposed by \citeauthor{Chen2002} and \citeauthor{Litjens2014} are computed~\cite{Chen2002,Litjens2014}.
-% Therefore, 4 different metrics are computed based on the relative distance to the prostate boundary as well as the prostate center, and the relative position in the Euclidean and cylindrical coordinate systems.
-
-\subsection{Imbalance}
-\label{sec:experiments:imbalance}
-
-\Acf{fig}\,\ref{fig:imbalance} show the effect of applying under- and
-over-sampling techniques to mitigate the fact that in prostate data the amount
-of healthy voxels is much larger than the cancerous voxels.
-The under-sampling techniques reduce the number of samples of the majority class
-to be equal to the minority class.
-On the other hand, the over-sampling techniques generates new samples in the minority class, aiming at equalizing
-the number of samples in both classes.
-\ac{iht}, \ac{nm1}, \ac{nm2} and \ac{nm3} belong to under-sampling methods,
-while \ac{smote}, \ac{smoteb1} and \ac{smoteb2} are over-sampling methods.
-
-The results in \ac{fig}\,\ref{fig:imbalance} show that applying balancing
-methods increases the \ac{auc} score for \ac{t2w}, \ac{adc} and \ac{dce}
-modalities. Despite not rising the \ac{auc} score for the \ac{mrsi} case,
-balancing reduces the variability of the \ac{auc} score. The results also show
-that the optimal strategy varies depending on the modality and this choice has
-to be made empirically.
+\subsubsection{Feature detection - \Ac{mrsi}}
 
 \begin{figure}
   \hspace*{\fill}
-  \subfigure[\acs{t2w}\quad(reference \ac{auc} = $0.72\pm0.122$)]{
+  \subfigure[] {
     \includegraphics[width=.45\textwidth]
-    {images/imbalance_effect/t2w.pdf}
+    {images/mrsi_all.pdf}
+    \label{fig:mrsi}
   }
   \hfill
-  \subfigure[\acs{adc}\quad(reference \ac{auc} = $0.697\pm0.128$)] {
+  \subfigure[]{
     \includegraphics[width=.45\textwidth]
-    {images/imbalance_effect/adc.pdf}
-  }
-  \hspace*{\fill}\\
-  \hspace*{\fill}
-  \subfigure[\acs{dce}\quad(reference \ac{auc} = $0.679\pm0.136$)] {
-    \includegraphics[width=.45\textwidth]
-    {images/imbalance_effect/dce.pdf}
-  }
-  \hfill
-  \subfigure[\acs{mrsi}\quad(reference \ac{auc} = $0.695\pm0.159$)]{
-    \includegraphics[width=.45\textwidth]
-    {images/imbalance_effect/mrsi.pdf}
+    {images/all.pdf}
+    \label{fig:indmodality}
   }
   \hspace*{\fill}
-  \caption[] {Effect of performing data balancing at each modality. The
-    \acs{auc} reference of each modality corresponds to the same values as in \ac{fig}\,\ref{fig:modality-combination:separeate_modalities}}
-  \label{fig:imbalance}
+  \caption[]{}
+  \label{fig:xxx}
 \end{figure}
 
-\subsection{Features}
-\label{sec:experiments:features}
+\subsubsection{Baseline performance for each modality}
+
+\subsection{Data balancing}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\linewidth]{images/aggregation.pdf}
+  \caption[Balancing]{Balancing}
+  \label{fig:balancing}
+\end{figure}
+
+\subsection{Feature selection}
 
 \begin{figure}
   \hspace*{\fill}
@@ -532,6 +883,125 @@ to be made empirically.
   \label{fig:feat_importance}
 \end{figure}
 
+\begin{table}
+  \caption{Selected feature and number of occurrence for \acs*{t2w}-\acs*{mri}, \acs*{adc} map, and one all the features are concatenated.}
+  \centering
+  \scriptsize
+  \begin{tabular}{llll}
+    \toprule
+    \multicolumn{1}{c}{\textbf{\acs*{t2w}-\acs*{mri}}} & \multicolumn{1}{c}{\textbf{\acs*{adc}}} & \multicolumn{1}{c}{\textbf{\acs*{dce}-\acs*{mri}}} & \multicolumn{1}{c}{\textbf{\acs*{mrsi}}} \\
+    \midrule
+    113 Gabor filters & 53 Gabor filters & 14 samples  & 78 samples \\
+    1 phase congruency & 2 phase congruency & & \\ 
+    4 edges & & & \\
+    1 intensity & & & \\
+    \midrule
+    \multicolumn{4}{c}{\textbf{267 features}} \\
+    \bottomrule
+  \end{tabular}
+  \label{tab:selfeatocc}
+\end{table}
+
+\subsection{Combination strategies}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.45\textwidth]{images/combine_all.pdf}  
+  \caption[modality combination] {Modality combination}
+  \label{fig:modality-combination}
+\end{figure}
+
+
+The summary of this work can be found in \ac{sec}\,\ref{sec:experiments:mpmri-comparison}
+where the results from individual modalities in
+\Ac{fig}\,\ref{fig:modality-combination:separeate_modalities} are compared to
+different strategies for combining all the modalities together in \Ac{fig}\,\ref{fig:modality-combination:combined}.
+The rest,
+\ac{sec}\,\ref{sec:experiments:mpmri-comparison}-\ref{sec:experiments:features}, 
+discusses particular aspects
+of the workflow in \Ac{sec}\,\ref{sec:framework} in order to bring each
+modality to its best light in order to compose
+\Ac{fig}\,\ref{fig:modality-combination:separeate_modalities}.
+
+\subsection{\ac{cap}-\ac{cad} bits}
+\label{sec:experiments:mpmri-comparison}
+\paragraph{The value of supplying \ac{dce} data directly}
+\paragraph{For the case of \ac{dce} data, a good normalization is all you need.}
+
+The features derived from the \ac{dce} modality can be categorized in: 
+(i) quantitative methods which describe the signal based on parameter values
+better fitting a given pharmacokinetic model such as Toft or Brix;
+(ii) semi-quantitative methods that use some descriptor such as wash in and wash
+out to embed the signal;
+or (iii) the entire signal.
+
+% Despite literature favoring the first two groups of
+% features~\cite{lemaitre2015computer} \emph{because they integrate over the
+%   singal independently}, we argue that a proper normalization of
+% the entire signal that brings \emph{all the patients, all the under the same
+%   coordinate system} leads to better results. 
+%
+
+% \subparagraph{\ac{mrsi} features}
+% Due to unavailability of some unsuppressed water acquisition, absolute quantification as presented by \citeauthor{trigui2017automatic} could not be computed~\cite{trigui2017automatic}.
+% Therefore, likewise in~\cite{Parfait2012}, three different techniques are used to extract discriminative features: (i) relative quantification based on metabolite quantification, (ii) relative quantification based on bounds integration, and (iii) spectra extraction.
+% \subparagraph{Anatomical features}
+% Beside the aforementioned features specific at each modality, anatomical features as proposed by \citeauthor{Chen2002} and \citeauthor{Litjens2014} are computed~\cite{Chen2002,Litjens2014}.
+% Therefore, 4 different metrics are computed based on the relative distance to the prostate boundary as well as the prostate center, and the relative position in the Euclidean and cylindrical coordinate systems.
+
+\subsection{Imbalance}
+\label{sec:experiments:imbalance}
+
+\Acf{fig}\,\ref{fig:imbalance} show the effect of applying under- and
+over-sampling techniques to mitigate the fact that in prostate data the amount
+of healthy voxels is much larger than the cancerous voxels.
+The under-sampling techniques reduce the number of samples of the majority class
+to be equal to the minority class.
+On the other hand, the over-sampling techniques generates new samples in the minority class, aiming at equalizing
+the number of samples in both classes.
+\ac{iht}, \ac{nm1}, \ac{nm2} and \ac{nm3} belong to under-sampling methods,
+while \ac{smote}, \ac{smoteb1} and \ac{smoteb2} are over-sampling methods.
+
+The results in \ac{fig}\,\ref{fig:imbalance} show that applying balancing
+methods increases the \ac{auc} score for \ac{t2w}, \ac{adc} and \ac{dce}
+modalities. Despite not rising the \ac{auc} score for the \ac{mrsi} case,
+balancing reduces the variability of the \ac{auc} score. The results also show
+that the optimal strategy varies depending on the modality and this choice has
+to be made empirically.
+
+
+% \begin{figure}
+%   \hspace*{\fill}
+%   \subfigure[\acs{t2w}\quad(reference \ac{auc} = $0.72\pm0.122$)]{
+%     \includegraphics[width=.45\textwidth]
+%     {images/imbalance_effect/t2w.pdf}
+%   }
+%   \hfill
+%   \subfigure[\acs{adc}\quad(reference \ac{auc} = $0.697\pm0.128$)] {
+%     \includegraphics[width=.45\textwidth]
+%     {images/imbalance_effect/adc.pdf}
+%   }
+%   \hspace*{\fill}\\
+%   \hspace*{\fill}
+%   \subfigure[\acs{dce}\quad(reference \ac{auc} = $0.679\pm0.136$)] {
+%     \includegraphics[width=.45\textwidth]
+%     {images/imbalance_effect/dce.pdf}
+%   }
+%   \hfill
+%   \subfigure[\acs{mrsi}\quad(reference \ac{auc} = $0.695\pm0.159$)]{
+%     \includegraphics[width=.45\textwidth]
+%     {images/imbalance_effect/mrsi.pdf}
+%   }
+%   \hspace*{\fill}
+%   \caption[] {Effect of performing data balancing at each modality. The
+%     \acs{auc} reference of each modality corresponds to the same values as in \ac{fig}\,\ref{fig:modality-combination:separeate_modalities}}
+%   \label{fig:imbalance}
+% \end{figure}
+
+\subsection{Features}
+\label{sec:experiments:features}
+
+
 \section{The advantage of mpmri}%\ac{mpmri}}
 \label{sec:experiments:mpmri-comparison}
 
@@ -557,24 +1027,6 @@ $0.836 \pm 0.083$.
 configuration by overlapping the probability map of having a \ac{cap} with the
 original \ac{t2w}-\ac{mri} slice, for 6 diverse patients.
 \emph{Something more comparing to single modality plot.}
-
-\begin{figure}
-  \hspace*{\fill}
-  \subfigure[] {
-    \includegraphics[width=.45\textwidth]
-    {images/all.pdf}
-    \label{fig:modality-combination:separeate_modalities}
-  }
-  \hfill
-  \subfigure[]{
-    \includegraphics[width=.45\textwidth]
-    {images/combine_all.pdf}
-    \label{fig:modality-combination:combined}
-  }
-  \hspace*{\fill}
-  \caption[modality combination] {Modality combination}
-  \label{fig:modality-combination}
-\end{figure}
 
 Due to the limited body of work using \ac{mrsi} data in \ac{cap}-\ac{cad}
 systems~\cite{lemaitre2015computer}, we also compare the stacking strategy with
@@ -607,48 +1059,22 @@ data (see \Ac{tab}\,\ref{tab:selfeatocc}).
 % several of the following modalities~\citep{lemaitre2015computer}:
 % \ac{t2w}-\ac{mri}, \ac{dce}-\ac{mri}, \ac{adc} maps, and \ac{mrsi}.
 
-\begin{table}
-  \caption{Selected feature and number of occurrence for \acs*{t2w}-\acs*{mri}, \acs*{adc} map, and one all the features are concatenated.}
-  \centering
-  \scriptsize
-  \begin{tabular}{llllll}
-    \toprule
-    \multicolumn{1}{c}{\textbf{\acs*{t2w}-\acs*{mri}}} & \multicolumn{1}{c}{\textbf{\acs*{adc}}} & \multicolumn{1}{c}{\textbf{\acs*{t2w}-\acs*{mri}}} & \multicolumn{1}{c}{\textbf{\acs*{adc}}} & \multicolumn{1}{c}{\textbf{\acs*{dce}-\acs*{mri}}} & \multicolumn{1}{c}{\textbf{\acs*{mrsi}}} \\
-    \cmidrule(lr){1-1} \cmidrule(lr){2-2} \cmidrule(lr){3-6}
-    8 edges & 1 \acs*{dct} & 113 Gabor filters & 53 Gabor filters & 14 samples  & 78 samples \\
-    155 Gabor filters & 32 Gabor filters & 1 phase congruency & 2 phase congruency & & \\ 
-    2 Haralick features & 1 phase congruency & 4 edges & & & \\
-    1 intensity & & 1 intensity & & & \\
-    4 \acs*{lbp} & & & & & \\
-    2 phase congruency & & & & & \\
-    \cmidrule(lr){1-1} \cmidrule(lr){2-2} \cmidrule(lr){3-6}
-    \multicolumn{1}{c}{\textbf{172 features}} & \multicolumn{1}{c}{\textbf{34 features}} & \multicolumn{4}{c}{\textbf{267 features}} \\
-    \bottomrule
-  \end{tabular}
-  \label{tab:selfeatocc}
-\end{table}
 
 
-\begin{landscape}
 \begin{figure}
   \hspace*{\fill}
-  \subfigure[\acs*{auc} = 0.922]{\label{fig:pat634}\includegraphics[width=.45\textwidth]{images/qualitative_results/patient_634.pdf}}
+  \subfigure[\acs*{auc} = 0.922]{\label{fig:pat634}\includegraphics[height=.15\textheight]{images/qualitative_results/patient_634_roi.pdf}}
   \hfill
-  \subfigure[\acs*{auc} = 0.942]{\label{fig:pat778}\includegraphics[width=.45\textwidth]{images/qualitative_results/patient_778.pdf}}
-  \hfill
-  \subfigure[\acs*{auc} = 0.914]{\label{fig:pat1036}\includegraphics[width=.45\textwidth]{images/qualitative_results/patient_1036.pdf}}
+  \subfigure[\acs*{auc} = 0.914]{\label{fig:pat1036}\includegraphics[height=.15\textheight]{images/qualitative_results/patient_1036_roi.pdf}}
   \hspace*{\fill}\\
   \hspace*{\fill}
-  \subfigure[\acs*{auc} = 0.692]{\label{fig:pat634}\includegraphics[width=.45\textwidth]{images/qualitative_results/patient_410.pdf}}
+  \subfigure[\acs*{auc} = 0.692]{\label{fig:pat634}\includegraphics[height=.15\textheight]{images/qualitative_results/patient_410_roi.pdf}}
   \hfill
-  \subfigure[\acs*{auc} = 0.879]{\label{fig:pat778}\includegraphics[width=.45\textwidth]{images/qualitative_results/patient_784.pdf}}
-  \hfill
-  \subfigure[\acs*{auc} = 0.735]{\label{fig:pat1036}\includegraphics[width=.45\textwidth]{images/qualitative_results/patient_1041.pdf}}
+  \subfigure[\acs*{auc} = 0.735]{\label{fig:pat1036}\includegraphics[height=.15\textheight]{images/qualitative_results/patient_1041_roi.pdf}}
   \hspace*{\fill}
   \caption[Illustration the resulting detection of our \acs*{mpmri} \acs*{cad} for \acs*{cap} detection.]{Illustration the resulting detection of our \acs*{mpmri} \acs*{cad} for \acs*{cap} detection. The blue contours corresponds to the \ac{cap} while the \texttt{jet} overlay represents the probability.}
   \label{fig:resultcad}
 \end{figure}
-\end{landscape}
 
 % \input{./content/chapter6.tex}
 
