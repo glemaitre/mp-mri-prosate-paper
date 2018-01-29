@@ -799,8 +799,7 @@ another classifier which serve as meta-classifier. We refer to this strategy as
 modality in the learning. Refer to \acs{sec}\,\ref{exp:classification} which
 gives insights about those 2 strategies.
 
-\section{Experiment and results}
-\label{sec:experiments}
+\section{Experiment and results}\label{sec:experiments}
 
 \subsection{Data}\label{sec:data}
 
@@ -839,51 +838,44 @@ is approximately 45 minutes.
 
 \subsection{Cross-validation and classifier}
 
-\subsection{Classification baseline}\label{exp:feat_det}
-
-\subsubsection{Feature detection - \Ac{dce}-\ac{mri}}\label{exp:dce_sel}
-
-\Acl{fig}\,\ref{fig:DCE-norm} compares the quantitative and semi-quantitative
-features against the entire \ac{dce} signal with (and without) normalization,
-showing that properly normalized data brings the most discriminating information
-from \ac{dce} modality, closely followed by the semi-quantitative approaches,
-and the least discriminating space corresponds to the qualitative methods.
+\subsection{Baseline classification for the each modality}\label{exp:feat_det}
 
 \begin{figure}
   \hspace*{\fill}
-  \subfigure[Performance of the quantitative methods on \acs*{dce}.] {
+  \subfigure[\ac{roc} \ac{auc} for the different quantification used for \ac{dce}-\ac{mri}.] {
+    \label{fig:dce_roc}
     \includegraphics[width=.45\textwidth]
     {images/DCE-normalization/dce_models_roc.pdf}
   }
   \hfill
-  \subfigure[Performance of enhanced \acs*{dce} signal.]{
-  \includegraphics[width=.45\textwidth]
-  {images/DCE-normalization/dce_models_wilcoxon.pdf}
-  }
-  \hspace*{\fill}
-  \caption[DCE] {DCE}
-  \label{fig:DCE-norm}
-\end{figure}
-
-\subsubsection{Feature detection - \Ac{mrsi}}\label{exp:mrsi}
-
-\begin{figure}
-  \hspace*{\fill}
-  \subfigure[] {
+  % \subfigure[]{
+  %   \label{fig:dce_wilcoxon}
+  %   \includegraphics[width=.45\textwidth]
+  %   {images/DCE-normalization/dce_models_wilcoxon.pdf}
+  % }
+  % \hspace*{\fill}
+  \subfigure[\ac{roc} \ac{auc} for the different quantification used for \ac{mrsi}.] {
+    \label{fig:mrsi_roc}
     \includegraphics[width=.45\textwidth]
     {images/mrsi_all.pdf}
-    \label{fig:mrsi}
-  }
-  \hfill
-  \subfigure[]{
-    \includegraphics[width=.45\textwidth]
-    {images/all.pdf}
-    \label{fig:indmodality}
   }
   \hspace*{\fill}
-  \caption[]{}
-  \label{fig:xxx}
+  \\
+  \hspace*{\fill}
+  \subfigure[Summary of the \ac{roc} \ac{auc} for all \ac{mri} modalities.]{
+    \label{fig:single_modality_roc}
+    \includegraphics[width=.45\textwidth]
+    {images/all.pdf}
+  }
+  \hspace*{\fill}
+  \caption[]{Summary of the baseline classification for each individual
+    \ac{mri} modality.}
+  \label{fig:dce_results}
 \end{figure}
+
+\subsubsection{Feature detection - \Ac{dce}-\ac{mri}}\label{exp:dce_sel}
+
+\subsubsection{Feature detection - \Ac{mrsi}}\label{exp:mrsi}
 
 \subsubsection{Baseline performance for each modality}
 
@@ -892,7 +884,7 @@ and the least discriminating space corresponds to the qualitative methods.
 \begin{figure}
   \centering
   \includegraphics[width=0.5\linewidth]{images/aggregation.pdf}
-  \caption[Balancing]{Balancing}
+  \caption[Balancing]{\ac{roc} \ac{auc} obtained with the different balancing strategies.}
   \label{fig:balancing}
 \end{figure}
 
@@ -900,33 +892,39 @@ and the least discriminating space corresponds to the qualitative methods.
 
 \begin{figure}
   \hspace*{\fill}
-  \subfigure[\acs{t2w} feature importance]{
+  \subfigure[\acs{t2w} feature importance.]{
+    \label{fig:feat_imp_t2w}
     \includegraphics[width=.45\textwidth]
     {images/feature_importance/feature_importance_t2w_annotated.pdf}
   }
   \hfill
-  \subfigure[\acs{adc} feature importance] {
+  \subfigure[\acs{adc} feature importance.] {
+    \label{fig:feat_imp_adc}
     \includegraphics[width=.45\textwidth]
     {images/feature_importance/feature_importance_adc_annotated.pdf}
   }
   \hspace*{\fill}\\
   \hspace*{\fill}
-  \subfigure[\acs{dce} feature importance] {
+  \subfigure[\acs{dce} feature importance.] {
+    \label{fig:feat_imp_dce}
     \includegraphics[width=.45\textwidth]
     {images/feature_importance/feature_importance_dce_annotated.pdf}
   }
   \hfill
-  \subfigure[\acs{mrsi} feature importance]{
+  \subfigure[\acs{mrsi} feature importance.]{
+    \label{fig:feat_imp_mrsi}
     \includegraphics[width=.45\textwidth]
     {images/feature_importance/feature_importance_mrsi_annotated.pdf}
   }
   \hspace*{\fill}
-  \caption[DCE] {Feature importance}
+  \caption[]{Feature importances on each modality using a \ac{rf} on the
+    aggregation of all features extracted.}
   \label{fig:feat_importance}
 \end{figure}
 
 \begin{table}
-  \caption{Selected feature and number of occurrence for \acs*{t2w}-\acs*{mri}, \acs*{adc} map, and one all the features are concatenated.}
+  \caption{Selected feature and number of occurrence for \acs*{t2w}-\acs*{mri},
+    \acs*{adc} map, and one all the features are concatenated.}
   \centering
   \scriptsize
   \begin{tabular}{llll}
@@ -948,17 +946,23 @@ and the least discriminating space corresponds to the qualitative methods.
 
 \begin{figure}
   \hspace*{\fill}
-  \subfigure[] {
+  \subfigure[\ac{roc} \ac{auc} with different fusion strategies.] {
+    \label{fig:combine_all}
     \includegraphics[width=.45\textwidth]
     {images/combine_all.pdf}
   }
   \hfill
-  \subfigure[]{
-  \includegraphics[width=.45\textwidth]
-  {images/stacking_wt_mrsi.pdf}
+  \subfigure[\ac{roc} \ac{auc} by plug-in/-out \ac{mrsi} modality.]{
+    \label{fig:stacking_mrsi}
+    \includegraphics[width=.45\textwidth]
+    {images/stacking_wt_mrsi.pdf}
   }
   \hspace*{\fill}
-  \caption[] {Combining results}
+  \caption[]{\ac{roc} \ac{auc} results after fusion of \ac{mri} modalities:
+    \protect\subref{fig:combine_all} Comparison of different approach for
+    \ac{mri} modality fusion;
+    \protect\subref{fig:stacking_mrsi} Effect of adding/removing \ac{mrsi}
+    using stacking strategy.}
   \label{fig:DCE-norm}
 \end{figure}
 
