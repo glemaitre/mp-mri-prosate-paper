@@ -1,9 +1,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % A template for Wiley article submissions.
-% Developed by Overleaf. 
+% Developed by Overleaf.
 %
-% Please note that whilst this template provides a 
-% preview of the typeset manuscript for submission, it 
+% Please note that whilst this template provides a
+% preview of the typeset manuscript for submission, it
 % will not necessarily be the final publication layout.
 %
 % Usage notes:
@@ -122,7 +122,7 @@ medical exams~\citep{weinreb2016pi}.
 \citeauthor{lemaitre2015computer}\,\cite{lemaitre2015computer} provides an
 overview and categorization of the developed \acs{cad} systems for \ac{cap}
 detection and diagnosis based on \ac{mri} modalities. As a conclusion, the
-following shortcomings have been drawn: (i) a single study used all available
+following shortcomings have been drawn: (i) not a single study used all available
 \ac{mri} modalities, (ii) little attention has been granted to data
 normalization, (iii) features have usually been extracted using solely 2D
 information, and (iv) the problem of data balancing has never been
@@ -144,15 +144,15 @@ the classification bias introduce during the learning phase.
 The rest of this document is structured as follows:
 \acs{sec}\,\ref{sec:materials_and_methods} details each step of our \ac{mpmri}
 \ac{cad} system while \acs{sec}\,\ref{sec:experiments} reports a set of
-experiment to give insights about each of these steps. Finally,
+experiments to give insights about each of these steps. Finally,
 \ac{sec}\,\ref{sec:conclusion} concludes this work and give avenues for future
 research.
 
 % % survey's summary
 % \begin{figure}
-% \begin{itemize} 
-% \item summary: 
-%   \begin{itemize} 
+% \begin{itemize}
+% \item summary:
+%   \begin{itemize}
 %     \item 56 studies
 %     \item num of MRI modalities: 1 - 33\%, 2 - 31\%, 3 - 33\%, 4 - 1\%
 %     \item Scanner type: 3T - 60\%, 1.5T - 40\%
@@ -160,14 +160,14 @@ research.
 %     \item cad type: cade-cadx 70\%, cadx 30\%
 %   \end{itemize}
 % \item positive:
-%   \begin{itemize} 
+%   \begin{itemize}
 %     \item 3 modalities better than 2
 %     \item Texture and edge features are predominant
 %     \item Features selection/extraction tends to improve performance
 %     \item Pre-eminence of SVM and ensemble classifier (i.e., AdaBoost, RF, etc.)
 %   \end{itemize}
 % \item negative:
-%   \begin{itemize} 
+%   \begin{itemize}
 %     \item no publicly available mp-mri dataset
 %     \item only 1 study used 4 mri modalities
 %     \item limited work on data normalization
@@ -201,7 +201,7 @@ research.
 % \subsection{CaP framework} \label{sec:framework}
 
 % \Acl{fig}~\ref{fig:wkfcad} illustrates the common \ac{cad}-\ac{cap} workflow
-% resulting from the State-of-the-Art~\cite{lemaitre2015computer}, which 
+% resulting from the State-of-the-Art~\cite{lemaitre2015computer}, which
 % consists of three distinctive processes: (i) image regularization, (ii)
 % \ac{cade} and (iii) \ac{cadx}. Image regularisation focuses on formatting the data
 % while \ac{cade} and \ac{cadx} allow to detect possible lesions and distinguish
@@ -228,7 +228,7 @@ research.
 % %
 % Data balancing stage is added to ensure proper learning in a scenario where the
 % number of negative samples is far greater than the positive, as this one, where
-% the voxels with labeled as cancer far less than the healthy. 
+% the voxels with labeled as cancer far less than the healthy.
 % %
 % \ac{rf} is used in feature selection and classification steps. This choice is
 % motivated by the fact that
@@ -366,7 +366,7 @@ research.
 
 % Among those, \ac{pca}, sparse-\ac{pca}, and \ac{ica} are used to decompose signal-based data.
 % \paragraph{classification}
-% Variety of classifiers have been explained in \acs{sec}\,\ref{subsec:chp3:img-clas:CADX-clas}. 
+% Variety of classifiers have been explained in \acs{sec}\,\ref{subsec:chp3:img-clas:CADX-clas}.
 
 % Among those, \ac{rf} showed its reliability to lead to high classification performance.
 % That is why, \ac{rf} has been chosen as our base classifier --- allowing for feature selection as well --- to perform classification of individual modality as well as the combination of modalities.
@@ -394,8 +394,9 @@ research.
 % The difference between \ac{adb} and \ac{gb} lie in the fact the this
 % minimization procedure.
 
-As presented in the introduction, we detail each step of the workflow of the
-proposed \ac{mpmri} \ac{cad} system (see \acs{fig}\,\ref{fig:wkfcad}).
+As presented in the introduction, this section details each step of the
+workflow of the proposed \ac{mpmri} \ac{cad} system (see
+\acs{fig}\,\ref{fig:wkfcad}).
 
 \begin{figure}
   \centering
@@ -415,7 +416,15 @@ acquisition, (ii) the patient motion between the \ac{t2w}-\ac{mri} and the
 \ac{dce}-\ac{mri} acquisitions, and (iii) the patient motion between the
 \ac{t2w}-\ac{mri} and the \ac{adc} map acquisition.
 
-The \ac{dce}-\ac{mri} acquisition being dynamic, some intra-patient motions
+\textcolor{red}{Therefore manual segmentation provided by our radiologists was
+  used (prostate gland, cancerous regions, and prostate regions).  Next,
+  different registration methods were used to align: (i) the patient motion
+  during the \ac{dce}-\ac{mri} acquisition, (ii) the patient motion between the
+  \ac{t2w}-\ac{mri} and the \ac{dce}-\ac{mri} acquisitions, and (iii) the
+  patient motion between the \ac{t2w}-\ac{mri} and the \ac{adc} map
+  acquisition.}
+
+(i) The \ac{dce}-\ac{mri} acquisition being dynamic, some intra-patient motions
 might occur during the acquisition. For each serie of this dynamic
 acquisition, each 3D volume is registered to the first volume acquired, to
 remove the residual motion. The appearance in the \ac{dce}-\ac{mri} images,
@@ -423,7 +432,17 @@ however, varies due to the presence or not of the contrast media. Therefore,
 the metric chosen to be minimized is the \ac{mi} and the geometric transform
 has been set to a rigid transform. The optimization is performed using a
 regular step gradient descent.
-Once the intra-patient motions corrected, a registration to correct the
+
+\textcolor{red}{(i) Due to dynamic acquisition of \ac{dce}-\ac{mri}, some
+  intra-patient motions might occur during the acquisition. To remove
+  this residual motion, for each serie of a dynamic acquisition, each 3D
+  volume is registered to the first volume acquired. The appearance in the
+  \ac{dce}-\ac{mri} images, however, varies due to the presence or not of the
+  contrast media. Therefore, the metric chosen to be minimized is the \ac{mi}
+  and the geometric transform has been set to a rigid transform. The
+  optimization is performed using a regular step gradient descent.}
+
+(ii) Once the intra-patient motions corrected, a registration to correct the
 alignment between the \ac{t2w}-\ac{mri} and the \ac{dce}-\ac{mri} acquisitions
 is performed. For that matter, the prostate has been segmented in both
 modalities --- \ac{t2w}-\ac{mri} and \ac{dce}-\ac{mri} --- to create two binary
@@ -435,11 +454,23 @@ transformation is used as the elastic transform. These successive
 transformations allow to get a good initialization for the next transformation.
 The transformation is inferred by minimizing the cost function using a regular
 step gradient descent.
-The \ac{t2w}-\ac{mri} and \ac{adc} map acquisitions are registered using the
-same approach as for the registration of the \ac{t2w}-\ac{mri} and the
-\ac{dce}-\ac{mri} modalities.
-Additionally, the \ac{cap}, \ac{pz}, and \ac{cg} are segmented on the
-\ac{t2w}-\ac{mri} and thus \ac{t2w}-\ac{mri} is used as the reference modality.
+
+\textcolor{red}{(ii) To correct the alignment between \ac{t2w}-\ac{mri} and the
+  \ac{dce}-\ac{mri}, the prostate has been segmented in both modalities ---
+  \ac{t2w}-\ac{mri} and \ac{dce}-\ac{mri} --- to create two binary masks. These
+  3D binary masks are directly registered using the \ac{mse} metric. The
+  registration is performed by finding a rigid transformation, a coarse elastic
+  transformation, and a fine elastic transformation. B-splines transformation
+  is used as the elastic transform. These successive transformations allow to
+  get a good initialization for the next transformation. The transformation is
+  inferred by minimizing the cost function using a regular step gradient
+  descent. }
+
+(iii) The \ac{t2w}-\ac{mri} and \ac{adc} map acquisitions are registered using
+the same approach as for the registration of the \ac{t2w}-\ac{mri} and the
+\ac{dce}-\ac{mri} modalities.  Additionally, the \ac{cap}, \ac{pz}, and \ac{cg}
+are segmented on the \ac{t2w}-\ac{mri} and thus \ac{t2w}-\ac{mri} is used as
+the reference modality.
 
 \subsection{Feature detection}
 
@@ -447,6 +478,10 @@ This section highlights the features which are extracted for each modality. For
 both cases, \ac{dce}-\ac{mri} and \ac{mrsi}, different models are
 presented. Experiments in \acs{sec}\,\ref{exp:feat_det} are designed to select
 the best strategies to adopt.
+\textcolor{red}{In accordance to different modalities, two categories of
+  features are extracted: (i)2D/3D image-based features
+  (\acs*{t2w}-\ac{mri}/\acs*{adc}), (ii) 1D
+  features(\acs*{dce}-\ac{mri}/\acs*{mrsi})}
 
 \subsubsection{Image-based features (\acs*{t2w}-\ac{mri}/\acs*{adc})}
 
@@ -932,7 +967,7 @@ is approximately 45 minutes.
     \multicolumn{1}{c}{\textbf{\acs*{t2w}-\acs*{mri}}} & \multicolumn{1}{c}{\textbf{\acs*{adc}}} & \multicolumn{1}{c}{\textbf{\acs*{dce}-\acs*{mri}}} & \multicolumn{1}{c}{\textbf{\acs*{mrsi}}} \\
     \midrule
     113 Gabor filters & 53 Gabor filters & 14 samples  & 78 samples \\
-    1 phase congruency & 2 phase congruency & & \\ 
+    1 phase congruency & 2 phase congruency & & \\
     4 edges & & & \\
     1 intensity & & & \\
     \midrule
@@ -972,7 +1007,7 @@ is approximately 45 minutes.
 % \Ac{fig}\,\ref{fig:modality-combination:separeate_modalities} are compared to
 % different strategies for combining all the modalities together in \Ac{fig}\,\ref{fig:modality-combination:combined}.
 % The rest,
-% \ac{sec}\,\ref{sec:experiments:mpmri-comparison}-\ref{sec:experiments:features}, 
+% \ac{sec}\,\ref{sec:experiments:mpmri-comparison}-\ref{sec:experiments:features},
 % discusses particular aspects
 % of the workflow in \Ac{sec}\,\ref{sec:framework} in order to bring each
 % modality to its best light in order to compose
@@ -983,7 +1018,7 @@ is approximately 45 minutes.
 % \paragraph{The value of supplying \ac{dce} data directly}
 % \paragraph{For the case of \ac{dce} data, a good normalization is all you need.}
 
-% The features derived from the \ac{dce} modality can be categorized in: 
+% The features derived from the \ac{dce} modality can be categorized in:
 % (i) quantitative methods which describe the signal based on parameter values
 % better fitting a given pharmacokinetic model such as Toft or Brix;
 % (ii) semi-quantitative methods that use some descriptor such as wash in and wash
@@ -994,7 +1029,7 @@ is approximately 45 minutes.
 % features~\cite{lemaitre2015computer} \emph{because they integrate over the
 %   singal independently}, we argue that a proper normalization of
 % the entire signal that brings \emph{all the patients, all the under the same
-%   coordinate system} leads to better results. 
+%   coordinate system} leads to better results.
 %
 
 % \subparagraph{\ac{mrsi} features}
@@ -1062,7 +1097,7 @@ is approximately 45 minutes.
 
 % As aforementioned, \ac{fig}\,\ref{fig:modality-combination} compares the best
 % results of each individual image modality (\ac{t2w}-\ac{mri}, \ac{dce}-\ac{mri},
-% \ac{adc} map and \ac{mrsi}) in 
+% \ac{adc} map and \ac{mrsi}) in
 % \ac{fig}\,\ref{fig:modality-combination:separeate_modalities}) against three
 % different manners of combining them in \ac{fig}\,\ref{fig:modality-combination:combined}:
 % (i) in blue, a feature vector composed with the selected features of each image
@@ -1086,7 +1121,7 @@ is approximately 45 minutes.
 % Due to the limited body of work using \ac{mrsi} data in \ac{cap}-\ac{cad}
 % systems~\cite{lemaitre2015computer}, we also compare the stacking strategy with
 % and without \ac{mrsi} data in order to see its influence. We observe that with
-% no \ac{mrsi} data the final performance drops from 
+% no \ac{mrsi} data the final performance drops from
 % $0.786 \pm 0.098$ to $0.756 \pm 0.092$.
 % This aligns with the fact that $29.2\%$ of the features selected when
 % concatenating all the features from all modalities are in fact from \ac{mrsi}
@@ -1167,7 +1202,7 @@ Therefore, including \ac{mrsi} into the classification pipeline increases the \a
 % Acknowledgements should include contributions from anyone who does not meet the criteria for authorship (for example, to recognize contributions from people who provided technical help, collation of data, writing assistance, acquisition of funding, or a department chairperson who provided general support), as well as any funding or other support information.
 
 % \section*{conflict of interest}
-% The authors report no potential conflicts of interest. 
+% The authors report no potential conflicts of interest.
 
 % \printendnotes
 
