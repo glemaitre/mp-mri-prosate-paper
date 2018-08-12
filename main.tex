@@ -57,14 +57,13 @@
 899,000 cases and leading to 258,100 deaths per
 year~\citep{ferlay2010estimates}. Early detection, diagnosis and accurate risk
 assessment play a major role in patient treatment. In this regard,
-Hambrock\,\emph{et~al.}\,\cite{Hambrock2013} explore the idea of
-incorporating \ac{cad} systems to assist radiologists in their clinical
-practice; showing that applying \ac{cad} to \ac{cap} detection and diagnosis
-improve the clinician's performance specially for inexperienced radiologists
-which when assisted by \ac{cad} system are able to obtain results equivalent to
-those from a senior radiologist.
+Hambrock\,\emph{et~al.}\,\cite{Hambrock2013} explore the idea of incorporating
+\ac{cad} systems to assist radiologists in their clinical practice. They show
+that radiologists assisted with \ac{cad} for \ac{cap} detection and diagnosis
+improve their screening performance, especially for inexperienced radiologists,
+leveling up their performance to the senior radiologists expertise.
 
-Despite recent advances, in \ac{cap}-\ac{cad} remains a young technology mainly
+Despite recent advances, \ac{cap}-\ac{cad} remains a young technology mainly
 because it is based on \ac{mri}~\cite{Hegde2013}. The two main challenges in
 \ac{cap}-\ac{cad} systems, as pointed by the \ac{pirads} Steering Committee
 are: (i) improving the detection of clinically significant \ac{cap} and (ii)
@@ -72,7 +71,7 @@ increasing confidence in benign or dormant cases to avoid unnecessary invasive
 medical exams~\citep{weinreb2016pi}.
 
 Lemaitre\,\emph{et~al.}\,\cite{lemaitre2015computer} provides an
-overview and categorization of the developed \acs{cad} systems for \ac{cap}
+overview and a taxonomy of the developed \acs{cad} systems for \ac{cap}
 detection and diagnosis based on \ac{mri} modalities. As a conclusion, the
 following shortcomings have been drawn: (i) not a single study used all available
 \ac{mri} modalities, (ii) little attention has been granted to data
@@ -82,7 +81,7 @@ investigated. We refer the reader to~\cite{lemaitre2015computer} for a detailed
 review of the previous work related to \ac{mpmri} \ac{cad} for prostate cancer
 detection.
 
-Therefore, we propose a \ac{mpmri} \ac{cad} framework using all available
+Therefore, we here propose a \ac{mpmri} \ac{cad} framework using all available
 \ac{mri} modalities, as depicted in \acs{fig}\,\ref{fig:wkfcad}. In addition,
 feature extracted will take advantage of the 3D information of the data
 acquired. Our framework is also incorporating a data balancing step to reduce
@@ -92,14 +91,19 @@ The rest of this document is structured as follows:
 \acs{sec}\,\ref{sec:materials_and_methods} details each step of our \ac{mpmri}
 \ac{cad} system while \acs{sec}\,\ref{sec:experiments} reports a set of
 experiments to give insights about each of these steps. Finally,
-\ac{sec}\,\ref{sec:conclusion} concludes this work and give avenues for future
-research.
+\ac{sec}\,\ref{sec:conclusion} concludes this work with a discussion and give
+avenues for future research.
 
-\section{Materials and Methods} \label{sec:materials_and_methods}
+\section{Materials and Methods}\label{sec:materials_and_methods}
 
-As presented in the introduction, this section details each step of the
-workflow of the proposed \ac{mpmri} \ac{cad} system (see
-\acs{fig}\,\ref{fig:wkfcad}).
+We investigate here the different steps of the \ac{cad} for \ac{cap} pipeline
+presented in \acs{fig}\,\ref{fig:wkfcad}. Indeed, this pipeline is
+subdivided into 2 steps: (i) image regularization and (ii) \ac{cadx}. The image
+regularization covers the segmentation of the prostate organ in the
+different modalities and their realignment. The \ac{cadx} step is a regular
+classification pipeline in which features are detected, balanced, selected, and
+finally classified. The following sections go into details in each of these
+steps.
 
 \begin{figure}
   \centering
@@ -115,58 +119,58 @@ workflow of the proposed \ac{mpmri} \ac{cad} system (see
 
 \subsection{Segmentation and registration}
 
-Our main focus in this study is related to the \ac{cadx}. We used manual
-segmentation provided by our radiologists (prostate gland, cancerous regions,
-and prostate regions). In addition, we applied different registration methods
-to align the images: (i) the patient motion during the \ac{dce}-\ac{mri}
-acquisition, (ii) the patient motion between the \ac{t2w}-\ac{mri} and the
-\ac{dce}-\ac{mri} acquisitions, and (iii) the patient motion between the
-\ac{t2w}-\ac{mri} and the \ac{adc} map acquisition.
+We used the manual segmentation provided by our radiologists (prostate gland,
+cancerous regions, and prostate regions). In addition, we applied different
+registration methods to align the volumes from the different modalities: (i)
+the patient motion during the \ac{dce}-\ac{mri} acquisition, (ii) the patient
+motion between the \ac{t2w}-\ac{mri} and the \ac{dce}-\ac{mri} acquisitions,
+and (iii) the patient motion between the \ac{t2w}-\ac{mri} and the \ac{adc} map
+acquisition.
 
-(i) The \ac{dce}-\ac{mri} acquisition being dynamic, some intra-patient motions
-might occur during the acquisition. For each serie of this dynamic
-acquisition, each 3D volume is registered to the first volume acquired, to
+\begin{itemize}
+
+\item[(i)] The \ac{dce}-\ac{mri} acquisition being dynamic, some intra-patient
+motions might occur during the acquisition. For each serie of this dynamic
+acquisition, each 3D volume is registered to the first volume acquired to
 remove the residual motion. The appearance in the \ac{dce}-\ac{mri} images,
 however, varies due to the presence or not of the contrast media. Therefore,
 the metric chosen to be minimized is the \ac{mi} and the geometric transform
 has been set to a rigid transform. The optimization is performed using a
 regular step gradient descent.
 
-(ii) Once the intra-patient motions corrected, a registration to correct the
-alignment between the \ac{t2w}-\ac{mri} and the \ac{dce}-\ac{mri} acquisitions
-is performed. For that matter, the prostate has been segmented in both
-modalities --- \ac{t2w}-\ac{mri} and \ac{dce}-\ac{mri} --- to create two binary
-masks. Therefore, these 3D binary masks are directly registered using the
-\ac{mse} metric. Unlike the previous registration, we use a more complex
-geometric transform by successively finding a rigid transformation, a coarse
-elastic transformation, and a fine elastic transformation. B-splines
-transformation is used as the elastic transform. These successive
-transformations allow to get a good initialization for the next transformation.
-The transformation is inferred by minimizing the cost function using a regular
-step gradient descent.
+\item[(ii)] Once the intra-patient motions is corrected, \ac{t2w}-\ac{mri} and
+the \ac{dce}-\ac{mri} are registered. For that matter, the prostate has been
+segmented in both modalities --- \ac{t2w}-\ac{mri} and \ac{dce}-\ac{mri} --- to
+create two binary masks. These 3D binary masks are subsequently
+registered using the \ac{mse} metric. Unlike the previous registration, we use
+a more complex geometric transform by successively finding a rigid
+transformation, a coarse elastic transformation, and a fine elastic
+transformation. The B-splines transformation is used as the elastic
+transform. These successive transformations allow to get a good initialization
+for the next transformation. The transformation parameters are inferred by
+minimizing the cost function using a regular step gradient descent.
 
-(iii) The \ac{t2w}-\ac{mri} and \ac{adc} map acquisitions are registered using
-the same approach as for the registration of the \ac{t2w}-\ac{mri} and the
-\ac{dce}-\ac{mri} modalities.  Additionally, the \ac{cap}, \ac{pz}, and \ac{cg}
-are segmented on the \ac{t2w}-\ac{mri} and thus \ac{t2w}-\ac{mri} is used as
-the reference modality.
+\item[(iii)] The \ac{t2w}-\ac{mri} and \ac{adc} map acquisitions are registered
+using the same approach as for the registration of the \ac{t2w}-\ac{mri} and
+the \ac{dce}-\ac{mri} modalities. Additionally, the \ac{cap}, \ac{pz}, and
+\ac{cg} are segmented on the \ac{t2w}-\ac{mri} and thus \ac{t2w}-\ac{mri} is
+used as the reference modality.
+
+\end{itemize}
 
 \subsection{Feature detection}
 
-This section highlights the features which are extracted for each modality. For
-both cases, \ac{dce}-\ac{mri} and \ac{mrsi}, different models are
-presented. Experiments in \acs{sec}\,\ref{exp:feat_det} are designed to select
-the best strategies to adopt.
-\textcolor{red}{In accordance to different modalities, two categories of
-  features are extracted: (i)2D/3D image-based features
-  (\acs*{t2w}-\ac{mri}/\acs*{adc}), (ii) 1D
-  features(\acs*{dce}-\ac{mri}/\acs*{mrsi})}
+Two different types of feature are extracted due to the characteristics of the
+\ac{mri} modalities used in this study. Indeed, computer vision features are
+suitable for the \ac{t2w}-\ac{mri} and \ac{adc} map while specific feature
+engineering, embedding domain-specific knowledge, is required for the
+\ac{dce}-\ac{mri} and \ac{mrsi} data.
 
-\subsubsection{Image-based features (\acs*{t2w}-\ac{mri}/\acs*{adc})}
+\subsubsection{Computer vision features}
 
 \begin{table*}
   \caption{\textbf{Features extracted in \acs*{t2w}-\acs*{mri} and \acs*{adc}
-      modalities.} We explore a broad set of image features characterizing
+      map.} We explore a broad set of image features characterizing
     intensity, edges, and texture.}
   \centering
   \scriptsize
@@ -215,8 +219,9 @@ codes are computed for the three-orthogonal-planes of each \ac{mri} volume.
 
 \subsubsection{\acs*{dce}-\acs*{mri} features}\label{features:dce}
 
-Properties of \ac{dce}-\ac{mri} are usually extracted using quantitative or
-semi-quantitative approaches~\cite{lemaitre2015computer}.
+Two family of approaches are commonly used to extract information from the
+\ac{dce}-\ac{mri} signals~\cite{lemaitre2015computer}: (i) quantitative
+modeling and (ii) semi-quantitative modeling. 
 
 \emph{Quantitative approaches} uses pharmacokinetic modeling based on a
 bicompartment model, namely Brix~\cite{brix1991pharmacokinetic} and
@@ -233,15 +238,16 @@ non-linear approach requires the acquisition of a T$_1$ map which is not always
 possible during clinical examination. Additionally, computing the parameters
 require the \ac{aif} which is challenging to measure and influence the estimation.
 
-\emph{Semi-quantitative} approaches are mathematical rather than
-pharmacokinetic because no pharmacokinetic assumptions regarding the
-relationship between the \ac{mri} signal and the contrast agent are
-made~\cite{huisman2001accurate,gliozzi2011phenomenological}. These methods are
-advantageous because they do not require any knowledge of the \ac{mri} sequence
-or any conversion from signal intensity to concentration. However, they present
-some limitations: the heuristic approach proposed
-by~Huisman\,\emph{et~al.} requires an initial estimate of the
-standard deviation of the signal noise and some manual
+\emph{Semi-quantitative} approaches extract a set of parameters related to a
+mathematical model rather than a pharmacokinetic model, relaxing any
+pharmacokinetic assumptions regarding the relationship between the \ac{mri}
+signal and the contrast
+agent~\cite{huisman2001accurate,gliozzi2011phenomenological}. In addition,
+these methods do not require any knowledge regarding the \ac{mri} sequence or
+any conversion from the signal intensity to the media concentration. However,
+they present some limitations: the heuristic approach proposed
+by~Huisman\,\emph{et~al.}  requires an initial estimate of the standard
+deviation of the signal noise and some manual
 tuning~\cite{huisman2001accurate}.
 
 Nevertheless, all of the presented methods suffer from the following two major
@@ -253,9 +259,10 @@ describe the \ac{dce}-\ac{mri} signal which might lead to a loss of
 information. Therefore, in addition of extracting all presented models, we
 propose a method to normalize \ac{dce}-\ac{mri} to reduce inter-patient
 variations. As a consequence, no parametric models is required and the entire
-\ac{dce}-\ac{mri} normalized signal can be used as feature. Refer to
-\acs{sec}\,\ref{exp:dce_sel} regarding the experiments related to
-\ac{dce}-\ac{mri} modeling.
+\ac{dce}-\ac{mri} normalized signal can be used as feature. We will later
+present a set of experiments in \acs{sec}\,\ref{exp:dce_mrsi_sel} comparing
+each approach and select the most discriminative. The remaining of this section
+describe the procedure used to normalize the \ac{dce}-\ac{mri} sequences.
 
 \begin{figure*}
   \centering
@@ -310,7 +317,7 @@ follow a Rician or a Gaussian distribution over time in
 a potential estimate for these offsets. Additionally, these offsets should be
 characterized by a smooth transition between series over time.
 
-Thus, this problem is solved using graph-theory: considering the intensity
+Thus, this problem is solved using graph approach: considering the intensity
 \ac{pdf} over time as shown in Fig.\,\ref{subfig:pathhist}, the offsets
 correspond to the boundary splitting, the heatmap into two partitions such that
 they are as close as possible to the peak of the intensity \ac{pdf} (see
@@ -345,7 +352,7 @@ as the graph $\mathcal{G}$. The procedure is stopped once the offset found does
 not change. In general, this process is not repeated more than 3 times.  The
 parameter $\alpha$ is set to $0.9$, empirically. Figure~\ref{fig:estimator}
 illustrates the final estimation of the offsets, $\Delta_i$ (i.e., red
-landmark), found for each value of the \ac{dce}-\ac{mri} series.  Therefore,
+landmark), found for each value of the \ac{dce}-\ac{mri} series. Therefore,
 each intensity offset is subtracted for each \ac{dce}-\ac{mri}.
 
 \begin{figure*}
@@ -375,15 +382,16 @@ determined, the data are shifted and scaled.
 
 First, the \ac{mrsi} signal is pre-processed by correcting the
 phase~\cite{Chen2002}, baseline~\cite{xi2008baseline}, and
-frequency~\cite{Parfait2012}. Additionally, each \ac{mrsi} spectrum is
+frequency~\cite{Parfait2012} shifts. Additionally, each \ac{mrsi} spectrum is
 normalized using the L$_2$ norm, which has been shown to be the most efficient
 normalization method in \ac{mrsi}~\cite{Parfait2012}.  Once the signal are
 pre-processed, two strategies are commonly used to extract discriminative
 features from \ac{mrsi}: (i) relative quantification based on metabolite
 quantification and (ii) spectra extraction~\cite{Parfait2012}.
 
-In \emph{relative quantification} based on metabolite quantification, citrate
-and choline peaks are robustly fitted and integrated. Therefore, the relative
+In \emph{relative quantification}, the relative concentration of the
+metabolites of interest (i.e. citrate and choline) is computed by robustly
+fitting and integrating the peak(s). Therefore, the relative
 concentrations of citrate and choline are quantified using a Gaussian
 mixture. We solve this problem with a non-linear curve fitting problem under
 constraints. The constraints imposed are related to the peak location of the
@@ -391,10 +399,10 @@ citrate and choline.
 
 The latter strategies is based on the work of~\cite{Parfait2012}. The full
 \ac{mrsi} signal from \SIrange{2}{4}{\ppm} is used as features, letting the
-classifier define the important \si{\ppm} bandwidth.
+classifier selecting the relevant \si{\ppm} bandwidth of interest.
 
-Refer to \acs{sec}\,\ref{exp:dce_mrsi_sel} which is designed to select the best
-strategies.
+Similarly to the \ac{dce}-\ac{mri} data, a set of experiment is designed in
+\acs{sec}\,\ref{exp:dce_mrsi_sel} to select the most discriminative approach.
 
 \subsection{Data balancing}\label{features:balancing}
 
@@ -464,17 +472,19 @@ classes. The same generation rules as \ac{smote} is used.
 
 \subsection{Feature selection}\label{features:selection}
 
-\Ac{rf} provides information regarding the importance of each feature. The
-feature importance in \ac{rf} is linked with the Gini importance. In a tree
-classifier, the Gini impurity criterion of the child nodes is inferior to the
-parent node. For each individual feature, adding the decrease of the Gini
-impurity along the tree gives information about the feature importance: the
-higher, the better. Therefore, one can add the decrease of the Gini impurity
-across all the trees of a forest and obtain the importance of a specific
-feature for this forest. Subsequently, the $K$ most important features are
-selected to perform the feature selection. Therefore, in addition to use
-\ac{rf} as our base classifier, we also use it to identified important features
-as reported by the experiments in \acs{sec}\,\ref{exp:selection}.
+Tree-based models can be efficiently used to find which set of features is the
+most discriminative by using the Gini importance. In a tree classifier, the
+Gini impurity criterion of the child nodes is inferior to the parent node. For
+each individual feature, adding the decrease of the Gini impurity along the
+tree gives information about the feature importance: the higher, the
+better. Therefore, one can add the decrease of the Gini impurity across all the
+trees of a forest and obtain the importance of a specific feature for this
+forest. Subsequently, the $K$ most important features are selected to perform
+the feature selection.
+
+Therefore, in addition to use \ac{rf} as our base classifier, we also use it to
+identified important features as reported by the experiments in
+\acs{sec}\,\ref{exp:selection}.
 
 \subsection{Classification}
 
@@ -488,6 +498,17 @@ ensemble is set to 100.
 All experiments use a \ac{lopo} to report the results of the different models.
 
 \subsection{Computationally aspects}
+
+For reproducibility, we rely on the Python ecosystem:
+NumPy~\cite{walt2011numpy}, SciPy~\cite{jones2014scipy},
+scikit-learn~\cite{pedregosa2011scikit},
+imbalanced-learn~\cite{lemaitre2017imbalanced},
+scikit-image~\cite{van2014scikit},
+and mahotas~\cite{coelho2012mahotas}. The registration is performed using
+ITK~\cite{ibanez2005itk}. We further provide all source code of all
+experiments\footnote{\url{https://github.com/I2Cvb/mp-mri-prostate}} with the
+associated
+dataset\footnote{\url{https://zenodo.org/record/162231#.W3AAMBh9hhE}}.
 
 \begin{figure*}
   \hspace*{\fill}
@@ -661,8 +682,8 @@ model~\cite{gliozzi2011phenomenological}, (v) semi-quantitative
 approach~\cite{huisman2001accurate}, and (vi) use of the normalized \ac{dce}
 signal --- are extracted. The performance of each strategy is reported in
 \acs{fig}\,\ref{fig:dce_roc} in terms of \ac{roc}-\ac{auc}. Using the entire
-normalized \ac{dce} signal strategy outperforms of the other modeling
-strategies with an \ac{auc} of $0.679 \pm 0.136$.
+normalized \ac{dce} signal strategy outperforms the other approaches with an
+\ac{auc} of $0.679 \pm 0.136$.
 
 As presented in \acs{sec}\,\ref{features:mrsi}, 3 strategies are used to
 extract features from the \ac{mrsi} modality: (i) compute the ratio of the
@@ -681,7 +702,7 @@ performance with a \ac{roc}-\ac{auc} of $0.695 \pm 0.159$.
 performance for each individual modality as well as their
 combinations. Features extracted on the \ac{t2w}-\ac{mri} modality are the most
 discriminative leading to a \ac{roc}-\ac{auc} of $0.720 \pm 0.122$. Features
-from \ac{adc} and \ac{mrsi} modalities achieved similar performance,
+from \ac{adc} and \ac{mrsi} modalities achieve similar performance,
 i.e. $0.697 \pm 0.128$ and $0.695 \pm 0.159$, respectively. Finally, the
 \ac{dce}-\ac{mri} modality is the less discriminative modality with a
 \ac{roc}-\ac{auc} of $0.679 \pm 0.136$. In a clinical setting, those results
@@ -775,9 +796,10 @@ time points considered as important.
 
 We finally trained a fine-tuned \ac{rf} classifier on the subset of features
 found relevant and by applying the \ac{nm3} under-sampling. The classification
-performance in terms of \ac{roc} is reported in
-\acs{fig}\,\ref{fig:final}. The fine tuning of the classifier allows to improve
-the performance from $0.802 \pm 0.130$ to $0.836 \pm 0.083$.
+performance in terms of \ac{roc}-\ac{auc} is reported in
+\acs{fig}\,\ref{fig:summary_single_modality}. The fine tuning of the classifier
+allows to improve the performance from $0.802 \pm 0.130$ to $0.836 \pm 0.083$.
+\Acl{fig}~\ref{fig:resultcad} shows some example of \ac{cap} segmentation.
 
 \subsection{Effect of including \acs*{mrsi} modality}\label{discussion:mrsi}
 
@@ -788,26 +810,34 @@ the performance from $0.802 \pm 0.130$ to $0.836 \pm 0.083$.
   \label{fig:stacking_mrsi}
 \end{figure}
 
-We recall that the goal of this thesis is to use all the \ac{mpmri} modalities.
-In this regard, \ac{mrsi} has nearly never been used together with the other
+We can recall that \ac{mrsi} has nearly never been used together with the other
 modalities --- i.e., \ac{t2w}-\ac{mri}, \ac{dce}-\ac{mri}, and \ac{adc} map ---
 apart of the recent work of
 Trigui\,\emph{et~al.}~\cite{trigui2016classification,trigui2017automatic}.
 Therefore, we propose in this experiment to compare the classification
-performance by removing the \ac{mrsi} features.  In this regard, we propose to
-train 2 stacking classifiers --- with a \ac{gb} as meta-classifier --- while
-removing the feature related to \ac{mrsi} for one of them.  The same \ac{lopo}
-validation model is used as before and the results obtained from \ac{roc}
-analysis are depicted in \acs{fig}\,\ref{fig:resmrsigain}.  Therefore,
-including \ac{mrsi} into the classification pipeline increases the \ac{auc}
-from $0.756 \pm 0.092$ to $0.786 \pm 0.098$ for a gain of $0.030$.
+performance by removing the \ac{mrsi} features and observed the effect of
+including this modality.
+
+In this regard, we propose to train 2 models such that one of the model will
+omit the \ac{mrsi} modality. Therefore, we use a stacking approach for which
+the first layer is composed of a classifier (a \ac{rf} classifier) for each
+input modality and a second layer with a single classifier (a \ac{gb}
+classifier) to aggregate the predictions of the first layer. Therefore, 2
+stacking classifiers are trained: (i) the first model uses 4 base
+classifiers in its first layer while (ii) the second model uses 3 base
+classifiers in its first layer, omitting the classifier for the \ac{mrsi}
+modality.
+
+As in all other experiments, a \ac{lopo} validation scheme is used and the
+results obtained from \ac{roc} analysis are depicted in
+\acs{fig}\,\ref{fig:stacking_mrsi}. Thus, including \ac{mrsi} into the
+classification pipeline increases the \ac{auc} from $0.756 \pm 0.092$ to $0.786
+\pm 0.098$ highlighting the gain of incorporating the \ac{mrsi} modality in the
+\ac{cad} system.
+
+\section{Discussions}\label{sec:conclusion}
 
 
-\section{Discussions}
-
-\section{Conclusion}\label{sec:conclusion}
-
-Therefore, including \ac{mrsi} into the classification pipeline increases the \ac{auc} from $0.756 \pm 0.092$ to $0.786 \pm 0.098$ for a gain of $0.030$.
 
 \bibliographystyle{elsarticle-num} 
 \bibliography{literature_review_2}
