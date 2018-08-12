@@ -19,26 +19,27 @@
   \author[label3]{R.~Mart\'i}
 
   \address[label1]{Parietal team, Inria, CEA, Universit\'e Paris-Saclay, 1 Rue
-    Honor\'e d’Estienne d’Orves, 91120 Palaiseau}
+    Honor\'e d'Estienne d'Orves, 91120 Palaiseau}
   \address[label2]{LE2I UMR6306, CNRS, Arts et M\'etiers, Univ. Bourgogne
     Franche-Comt\'e, 12 rue de la Fonderie, 71200 Le Creusot}
   \address[label3]{ViCOROB, Universitat de Girona, Campus Montilivi, Edifici P4,
     17071 Girona}
 
   \begin{abstract}
-    Study the advantages of using multi-modal imagery in computer-aided
-    detection and diagnosis systems for prostate cancer with special attention to
-    pre-processing and data-balancing stages of a CaD.  A multi modal MR volumes
-    including T2W-MRI, DCE-MRI, DW-MRI and MRSI with accompanying ground-truth were
-    acquired from 17 patients. The proposed CaD system to conduct this study
-    consists of pre-processing, segmentation, feature detection, data balancing,
-    feature extraction and classification; and all results are cross-validated
-    using leave one patient out strategy.  The usage of multi-modal information to
-    the CaD system increases the area under the curve from $0.666\pm0.15$ up to
-    $0.836\pm0.083$, showing a better and more stable results.  The study using the
-    proposed framework shows that T2W-MRI is necessary to obtain satisfactory
-    results however better results are obtained when combined with other
-    modalities.
+
+    \Ac{cap} is the second most diagnosed cancer in men all over the
+    world. In the last decades, new imaging techniques based on \ac{mri} have
+    been developed improving the \ac{cap} screening. In this paper, we
+    proposed a \ac{cad} system to segment \ac{cap} using \ac{mpmri}. Our
+    \ac{cad} system incorporates computer vision features as well as domain
+    specific knowledge. We also investigate the effect of data balancing as
+    well as the relative importance of the features used in the \ac{cad}
+    system. In addition, we study the effect of including the \ac{mrsi}
+    modality into the \ac{cad}. All experiments are performed on a publicly
+    available dataset of 17 subjects using a \ac{lopo} scheme. The best
+    classification result is obtained with a fine-tuned (i.e. with balancing
+    and feature selection) with a \ac{roc}-\ac{auc} of $0.836 \pm 0.083$.
+
   \end{abstract}
 
   \begin{keyword}
@@ -49,7 +50,7 @@
 
 \end{frontmatter}
 
-
+\acresetall
 
 \section{Introduction}
 
@@ -837,7 +838,54 @@ classification pipeline increases the \ac{auc} from $0.756 \pm 0.092$ to $0.786
 
 \section{Discussions}\label{sec:conclusion}
 
+We designed and fine-tuned a classification pipeline for \ac{cap} detection.
+We would like to stress the following findings drawn during the
+experiments. The classification of individual modality highlights the weakness
+of the quantification methods --- i.e., pharmokinetic models, semi-quantitative
+model, and relative quantification of metabolites --- which might be due to the
+loss of information during the quantification procedure. In addition, the
+normalization proposed in \acs{sec}\,\ref{features:dce} allows to boost the
+discriminative power of the classifier using the \ac{dce}-\ac{mri}
+modality. Furthermore, the features extracted from the \ac{t2w}-\ac{mri} are
+the most discriminative even after features selection. Unlike
+\ac{t2w}-\ac{mri}, \ac{dce}-\ac{mri} is always the less discriminative method.
 
+The experiment link to the feature selection highlights some interesting facts
+regarding the most discriminative features. On the one hand, the Gabor filters and
+the phase congruency are always selected, independently of the strategy and
+modality during the feature selection process. Additionally, edge filters ---
+i.e., Kirsch, Prewitt, Scharr, and Sobel --- have been only selected for the
+\ac{t2w}-\ac{mri}. A possible explanation might be due to the fact that
+\ac{t2w}-\ac{mri} is the modality with the highest spatial resolution and in
+which the level of details is the most important. Subsequently, the intensity
+feature of the \ac{t2w}-\ac{mri} modality is selected, implying that our
+normalization method proposed in~\cite{lemaitre2016normalization} is
+efficient.
+
+While applying the feature selection on the concatenated set of features,
+\ac{mrsi} appeared to be one of the most significant feature by keeping the
+larger number of features. Along the same line, we show that removing this
+modality from the stacking classifier decreases drastically the classification
+performance. Finally, we can highlight that the classification performance
+obtained is worst with patients having a \ac{cap} localized in the
+\ac{cg}.
+
+As avenues for future research, one could switch from voxel-based
+classification to super-voxel classification such that spatial structure are
+classified instead of voxel. Furthermore, all features from this chapter can
+be defined as hand-crafted features. Therefore, an approach with unsupervised
+learning as convolutional neural network and conjunction with transfer learning
+should be investigated. It should be also noted that the number of patients
+included in this research is quite limited and that aggregating patients from
+multiple sites as well as multiple \ac{mri} machines would be required.
+
+\section*{Acknowledgment}
+
+G. Lema\^itre was supported by the Generalitat de Catalunya (grant
+nb. FIDGR2012), the Spanish R+D+I grant TIN2012-37171-C02-01, and the
+Regional Council of Burgundy (grant nb. 2015-9201AAO050S02760).
+Calculations were performed using HPC resources from DSI-CCUB
+(Universit\'e de Bourgogne).
 
 \bibliographystyle{elsarticle-num} 
 \bibliography{literature_review_2}
