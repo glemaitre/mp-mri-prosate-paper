@@ -27,18 +27,18 @@
 
   \begin{abstract}
 
-    \Ac{cap} is the second most diagnosed cancer in men all over the
-    world. In the last decades, new imaging techniques based on \ac{mri} have
-    been developed improving the \ac{cap} screening. In this paper, we
-    proposed a \ac{cad} system to segment \ac{cap} using \ac{mpmri}. Our
-    \ac{cad} system incorporates computer vision features as well as domain
-    specific knowledge. We also investigate the effect of data balancing as
-    well as the relative importance of the features used in the \ac{cad}
-    system. In addition, we study the effect of including the \ac{mrsi}
-    modality into the \ac{cad}. All experiments are performed on a publicly
-    available dataset of 17 subjects using a \ac{lopo} scheme. The best
-    classification result is obtained with a fine-tuned (i.e. with balancing
-    and feature selection) with a \ac{roc}-\ac{auc} of $0.836 \pm 0.083$.
+    \Ac{cap} is the second most diagnosed cancer in men all over the world. In
+    the last decades, new imaging techniques based on \ac{mri} have been developed
+    improving the \ac{cap} screening. In this paper, we propose a \ac{cad} system
+    to segment \ac{cap} using \ac{mpmri} and focus on the following steps: (i)
+    investigate the benefit of using all available \ac{mri} modalities and more
+    precisely the effect of including the \ac{mrsi} modality, (ii) focus on data
+    normalization during the pre-processing stage, (iii) extract computer vision
+    features using the volumetric information, and (iv) overcome the problem of
+    class imbalance. All experiments are performed on a publicly available dataset
+    of 17 subjects using a \ac{lopo} scheme. The best classification result is
+    obtained with a fine-tuned (i.e. with balancing and feature selection) with a
+    \ac{roc}-\ac{auc} of $0.836 \pm 0.083$.
 
   \end{abstract}
 
@@ -84,7 +84,7 @@ detection.
 
 Therefore, we here propose a \ac{mpmri} \ac{cad} framework using all available
 \ac{mri} modalities, as depicted in \acs{fig}\,\ref{fig:wkfcad}. In addition,
-feature extracted will take advantage of the 3D information of the data
+whenever possible the features are extracted using 3D information of the data
 acquired. Our framework is also incorporating a data balancing step to reduce
 the classification bias introduce during the learning phase.
 
@@ -162,7 +162,7 @@ used as the reference modality.
 \subsection{Feature detection}
 
 Two different types of feature are extracted due to the characteristics of the
-\ac{mri} modalities used in this study. Indeed, computer vision features are
+\ac{mri} modalities used in this study: computer vision features are
 suitable for the \ac{t2w}-\ac{mri} and \ac{adc} map while specific feature
 engineering, embedding domain-specific knowledge, is required for the
 \ac{dce}-\ac{mri} and \ac{mrsi} data.
@@ -201,19 +201,19 @@ extracted with their corresponding parameters. Note that all these features are
 extracted at each voxel of the volume. The voxel intensities are the most
 common features encoding tumor information. However, those intensities vary
 between patients. Therefore, \ac{t2w}-\ac{mri} modality is normalized using a
-Rician \emph{apriori} as presented
-in~\cite{lemaitre2016normalization}. \Ac{adc} coefficient is standardized as
-in~\cite{Nyul1999}. The following set of filters characterizing edges are
-extracted: (i) Kirsch, (ii) Laplacian, (iii) Prewitt, (iv) Scharr, (v) Sobel,
-and (vi) Gabor. Apart of the Kirsh filter, other filters can be extended into
-3D filter. 3D Gabor filters are not commonly used and we reused the formulation
-presented in~\cite{wang2005face}. Additionally, features based on phase
-congruency as proposed by Kosevi\,\emph{et~al.} are
-computed~\cite{kovesi1999image}. Therefore, from a set of Log-Gabor filter
-bank, the orientation image, the local weighted mean phase angle, and the phase
-angle are estimated at each voxel. To characterize the local texture, both
-second-order \ac{glcm}-based features~\cite{Haralick1973} and rotation
-invariant and uniform \ac{lbp}~\cite{ojala2002multiresolution} are
+Rician \emph{apriori} as presented in~\cite{lemaitre2016normalization}. The
+\Ac{adc} maps are standardized using a piecewise linear transformation as
+proposed in~\cite{Nyul1999}. The following set of filters characterizing edges
+are extracted: (i) Kirsch, (ii) Laplacian, (iii) Prewitt, (iv) Scharr, (v)
+Sobel, and (vi) Gabor. Apart of the Kirsh filter, all filters are 3D kernels
+extracting volumetric information instead of solely planar. 3D Gabor filters
+are not commonly used and we reused the formulation presented
+in~\cite{wang2005face}. Additionally, features based on phase congruency as
+proposed by Kosevi\,\emph{et~al.} are computed~\cite{kovesi1999image}. They
+consist of the orientation image, the local weighted mean phase angle, and
+the phase angle, which are estimated at each voxel. To characterize the local
+texture, both second-order \ac{glcm}-based features~\cite{Haralick1973} and
+rotation invariant and uniform \ac{lbp}~\cite{ojala2002multiresolution} are
 extracted. To encode 3D information, the 13 first Haralick features are
 computed for the 13 possible directions. For the same reason, the \ac{lbp}
 codes are computed for the three-orthogonal-planes of each \ac{mri} volume.
@@ -257,13 +257,13 @@ inter-patient variability is mainly due to the acquisition process and
 consequently leads to generalization issues in applying a machine learning
 algorithm. All previous methods extract few discriminative parameters to
 describe the \ac{dce}-\ac{mri} signal which might lead to a loss of
-information. Therefore, in addition of extracting all presented models, we
-propose a method to normalize \ac{dce}-\ac{mri} to reduce inter-patient
-variations. As a consequence, no parametric models is required and the entire
-\ac{dce}-\ac{mri} normalized signal can be used as feature. We will later
-present a set of experiments in \acs{sec}\,\ref{exp:dce_mrsi_sel} comparing
-each approach and select the most discriminative. The remaining of this section
-describe the procedure used to normalize the \ac{dce}-\ac{mri} sequences.
+information. Therefore, we propose a method to normalize \ac{dce}-\ac{mri} to
+reduce inter-patient variations. As a consequence, no parametric models is
+required and the entire \ac{dce}-\ac{mri} normalized signal can be used as
+feature. We will later present a set of experiments in
+\acs{sec}\,\ref{exp:dce_mrsi_sel} comparing each approach and select the most
+discriminative one. The remainder of this section describes the procedure used
+to normalize the \ac{dce}-\ac{mri} sequences.
 
 \begin{figure*}
   \centering
@@ -398,9 +398,9 @@ mixture. We solve this problem with a non-linear curve fitting problem under
 constraints. The constraints imposed are related to the peak location of the
 citrate and choline.
 
-The latter strategies is based on the work of~\cite{Parfait2012}. The full
+The latter strategy is based on the work of~\cite{Parfait2012}. The full
 \ac{mrsi} signal from \SIrange{2}{4}{\ppm} is used as features, letting the
-classifier selecting the relevant \si{\ppm} bandwidth of interest.
+classifier selecting the relevant \si{\ppm} bandwidth.
 
 Similarly to the \ac{dce}-\ac{mri} data, a set of experiment is designed in
 \acs{sec}\,\ref{exp:dce_mrsi_sel} to select the most discriminative approach.
@@ -476,12 +476,12 @@ classes. The same generation rules as \ac{smote} is used.
 Tree-based models can be efficiently used to find which set of features is the
 most discriminative by using the Gini importance. In a tree classifier, the
 Gini impurity criterion of the child nodes is inferior to the parent node. For
-each individual feature, adding the decrease of the Gini impurity along the
+each individual feature, summing the decrease of the Gini impurity along the
 tree gives information about the feature importance: the higher, the
-better. Therefore, one can add the decrease of the Gini impurity across all the
-trees of a forest and obtain the importance of a specific feature for this
-forest. Subsequently, the $K$ most important features are selected to perform
-the feature selection.
+better. Therefore, one can sum the relative importance of all features across
+all the trees of a forest (with an additional normalization depending of the
+number of trees). Subsequently, the $K$ most important features are selected to
+perform the feature selection.
 
 Therefore, in addition to use \ac{rf} as our base classifier, we also use it to
 identified important features as reported by the experiments in
@@ -492,7 +492,7 @@ identified important features as reported by the experiments in
 \ac{rf} serves as our base classifier. The use of \ac{rf} is motivated since
 that it leads to the best performance in the state-of-the-art
 methods~\cite{Litjens2014,lemaitre2015computer}. The number of trees in
-ensemble is set to 100.
+the ensemble is set to 100.
 
 \subsection{Model validation}
 
@@ -672,7 +672,7 @@ approximately 45 minutes.
 As presented in \acs{sec}\,\ref{features:dce} and \ref{features:mrsi}, several
 methods exists to extract information from \ac{dce}-\ac{mri} and \ac{mrsi}
 modalities. These features are redundant and only one of the model/strategy
-should be selected. Therefore, this experiment intend to compare the
+should be selected. Therefore, this experiment intends to compare the
 induced performance of these features and select the best one.
 
 The methods presented in \acs{sec}\,\ref{features:dce} --- i.e. (i) Brix
@@ -768,8 +768,8 @@ the number and type of features which are selected. To complement this table,
 \acs{fig}\,\ref{fig:feat_importance} highlights the relative feature importance
 of each feature found by the \ac{rf} classifier.
 
-In the image-based modalities --- i.e. \ac{t2w}-\ac{mri} and \ac{adc} --- the
-Gabor features, \ac{dct}, phase congruency, and intensity are considered
+In the image-based modalities --- i.e. \ac{t2w}-\ac{mri} and \ac{adc} map ---
+the Gabor features, \ac{dct}, phase congruency, and intensity are considered
 particularly relevant. In the \ac{mrsi} modality, the \si{ppm} bands found
 relevant are associated with the citrate, creatine, and choline while in the
 \ac{dce}-\ac{mri}, the wash-in and the end of the wash-out corresponds to the
@@ -851,8 +851,8 @@ the most discriminative even after features selection. Unlike
 \ac{t2w}-\ac{mri}, \ac{dce}-\ac{mri} is always the less discriminative method.
 
 The experiment link to the feature selection highlights some interesting facts
-regarding the most discriminative features. On the one hand, the Gabor filters and
-the phase congruency are always selected, independently of the strategy and
+regarding the most discriminative features. On the one hand, the Gabor filters
+and the phase congruency are always selected, independently of the strategy and
 modality during the feature selection process. Additionally, edge filters ---
 i.e., Kirsch, Prewitt, Scharr, and Sobel --- have been only selected for the
 \ac{t2w}-\ac{mri}. A possible explanation might be due to the fact that
@@ -860,15 +860,18 @@ i.e., Kirsch, Prewitt, Scharr, and Sobel --- have been only selected for the
 which the level of details is the most important. Subsequently, the intensity
 feature of the \ac{t2w}-\ac{mri} modality is selected, implying that our
 normalization method proposed in~\cite{lemaitre2016normalization} is
-efficient.
+efficient. From those results, approaches based on convolutional neural network
+should perform well but will require to be tested on a much larger data set.
 
 While applying the feature selection on the concatenated set of features,
 \ac{mrsi} appeared to be one of the most significant feature by keeping the
-larger number of features. Along the same line, we show that removing this
+larger number of features. Along the same line, we show that plug-in/-out the
 modality from the stacking classifier decreases drastically the classification
 performance. Finally, we can highlight that the classification performance
 obtained is worst with patients having a \ac{cap} localized in the
-\ac{cg}.
+\ac{cg}, with a low sensitivity. A possible way to address this issue would be
+to train 2 classifiers, each of them specialized on a zone of the prostate
+gland (i.e. \ac{cg} and \ac{pz}) and later combine their predictions.
 
 As avenues for future research, one could switch from voxel-based
 classification to super-voxel classification such that spatial structure are
